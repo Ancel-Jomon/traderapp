@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "183953544834",
+    "project_id": "trader-bb666",
+    "storage_bucket": "trader-bb666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183953544834:android:f58c586099f4aa3be7469b",
+        "android_client_info": {
+          "package_name": "com.example.traderapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIeS2nFcaJLdC0asxrv1ZJ1i5Qc_kWKqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
