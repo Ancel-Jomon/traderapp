@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
 import 'package:traderapp/models/user.dart';
-import 'package:traderapp/services/firebase.dart';
+import 'package:traderapp/services/firebaseauthentication.dart';
+import 'package:traderapp/services/firestoreoptions.dart';
 //import 'package:traderapp/themes.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -28,8 +29,11 @@ class _DetailsPageState extends State<DetailsPage> {
   FirestoreAddUser addUser=FirestoreAddUser();
 
   void onPressed(BuildContext context) {
+
+   
+
     if (selectedOption == 'supplier') {
-      addUser.addUserDetail(User(name: name.text));
+      
       Navigator.pushNamed(context, '/SupHome');
     } else if (selectedOption == 'retailer') {
       Navigator.pushNamed(context, '/RetHome');

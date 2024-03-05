@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/services/firebaseauthentication.dart';
 //import 'package:traderapp/outer_pages/details.dart';
 //import 'package:traderapp/themes.dart';
 
@@ -14,8 +15,16 @@ class RegisterPage extends StatelessWidget {
 
   final TextEditingController _cpword = TextEditingController();
 
-  void register (BuildContext context) async {
-   
+  void register(BuildContext context) async {
+    final fireBaseAuthentication = FireBaseAuthentication();
+    await fireBaseAuthentication.createWithEmailPassword(
+        _email.text.trim(), _pword.text.trim()).then((value) => navigate(context));
+  }
+
+  navigate(BuildContext context) {
+    
+
+
     Navigator.pop(context);
     Navigator.pushNamed(context, '/DetailsPage');
   }
