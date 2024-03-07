@@ -1,4 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
@@ -23,6 +24,10 @@ class LoginPage extends StatelessWidget {
   }
 
   navigate(BuildContext context){
+    final user=FirebaseAuth.instance.currentUser;
+    if (user!=null) {
+      
+    }
     Navigator.pushNamed(context, '/RetHome');
   }
 
