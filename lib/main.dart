@@ -17,7 +17,7 @@ import 'package:traderapp/themes.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   runApp(const MyApp());
 }
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         title: '',
         theme: Themes().lightmode,
-        home: const LoginOrRegister(),
+        home: const PreLogin(),
         debugShowCheckedModeBanner: false,
         routes: {
           '/DetailsPage': (context) => DetailsPage(),
@@ -44,5 +44,23 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class PreLogin extends StatelessWidget {
+  const PreLogin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform) , builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.done:
+              return const LoginOrRegister();
+         
+        default:
+        return CircularProgressIndicator();
+      }
+
+    },);
   }
 }

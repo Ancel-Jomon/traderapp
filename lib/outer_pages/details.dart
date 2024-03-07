@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
-import 'package:traderapp/models/user.dart';
-import 'package:traderapp/services/firebaseauthentication.dart';
+//import 'package:traderapp/models/user.dart';
+//import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
 //import 'package:traderapp/themes.dart';
 
