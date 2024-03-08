@@ -1,11 +1,14 @@
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/models/retailer.dart';
+import 'package:traderapp/models/supplier.dart';
 //import 'package:traderapp/models/user.dart';
 //import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
 //import 'package:traderapp/themes.dart';
+import 'dart:developer' show log;
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -27,19 +30,41 @@ class _DetailsPageState extends State<DetailsPage> {
 
   String? selectedOption = 'None';
 
-  FirestoreAddUser addUser=FirestoreAddUser();
+  FirestoreAddUser addUser = FirestoreAddUser();
+
+    @override
+  void dispose() {
+    name.dispose();
+    company.dispose();
+    phone.dispose();
+    address.dispose();
+    super.dispose();
+  }
 
   void onPressed(BuildContext context) {
-
-  //  final user =FirebaseAuth.instance.currentUser;
-
-   // final uid=user?.uid;
+    final user = FirebaseAuth.instance.currentUser;
+    log('safetill here');
+    final uid = user?.uid;
 
     if (selectedOption == 'supplier') {
-      
-      Navigator.pushNamed(context, '/SupHome');
+      addUser.addUserDetail(
+          Supplier(
+              supplierName: name.text,
+              scompany: company.text,
+              sphno: phone.text,
+              saddress: address.text),
+          uid);
+      Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (route) => false);
     } else if (selectedOption == 'retailer') {
-      Navigator.pushNamed(context, '/RetHome');
+        addUser.addUserDetail(
+          Retailer(
+              retailername: name.text,
+              rcompany: company.text,
+              rphno: phone.text,
+              raddress: address.text),
+          uid);
+
+      Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (route) => false);
     }
   }
 

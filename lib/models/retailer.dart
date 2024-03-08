@@ -1,6 +1,20 @@
 
-class Retailer{
-  final String retailerName;
+import 'package:traderapp/models/user.dart';
 
-  Retailer({required this.retailerName});
+class Retailer extends User {
+  String retailername;
+  String rcompany, rphno, raddress;
+ 
+ String role = "retailer";
+
+  Retailer(
+      {required this.retailername,
+      required this.rcompany,
+      required this.rphno,
+      required this.raddress})
+      : super(
+            name: retailername,
+            company: rcompany,
+            phno: rphno,
+            address: raddress);
 }

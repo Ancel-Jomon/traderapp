@@ -8,7 +8,7 @@ class FireBaseAuthentication {
     try {
       UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: email, password: password);
-      print(userCredential);
+      
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e);

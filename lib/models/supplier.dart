@@ -1,21 +1,19 @@
 import 'package:traderapp/models/user.dart';
 
-class Supplier extends User{
+class Supplier extends User {
   String supplierName;
-  String? email,phno,address;
-  
-  
-  Supplier({required this.supplierName,this.email,this.phno,this.address}):super(name: supplierName);
+  String scompany, sphno, saddress;
+ 
+ String role = "supplier";
 
-  Map<String,dynamic> toFirestore(){
-    return{
-        'name':supplierName,
-        'email':email,
-        'phno':phno,
-        'address':address,
-
-    };
-
-  }
-
+  Supplier(
+      {required this.supplierName,
+      required this.scompany,
+      required this.sphno,
+      required this.saddress})
+      : super(
+            name: supplierName,
+            company: scompany,
+            phno: sphno,
+            address: saddress);
 }
