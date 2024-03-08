@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/bottomitems.dart';
 import 'package:traderapp/components/draweritems.dart';
+import 'package:traderapp/outer_pages/logout.dart';
 import 'package:traderapp/retailerpages/mainpages/homepage.dart';
 import 'package:traderapp/retailerpages/mainpages/messagepage.dart';
 import 'package:traderapp/retailerpages/mainpages/orderpage.dart';
 import 'package:traderapp/retailerpages/mainpages/profilepage.dart';
+//import 'package:traderapp/services/firebaseauthentication.dart';
 
 class RetHome extends StatefulWidget {
   const RetHome({super.key});
@@ -15,12 +17,18 @@ class RetHome extends StatefulWidget {
   State<RetHome> createState() => _RetHomeState();
 }
 
+enum MenuActions { logout }
+
 class _RetHomeState extends State<RetHome> {
   int selectedIndex = 0;
 
-  final pages = [RetHomePage(), RetMessagePage(), RetOrderPage(), RetProfilePage()];
+  final pages = [
+    RetHomePage(),
+    RetMessagePage(),
+    RetOrderPage(),
+    RetProfilePage()
+  ];
 
-  
   void pageNavigator(index) {
     setState(() {
       selectedIndex = index;
@@ -37,6 +45,7 @@ class _RetHomeState extends State<RetHome> {
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         foregroundColor: Theme.of(context).colorScheme.tertiary,
+        actions: logoutPopupMenuList(context),
       ),
       drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -56,7 +65,7 @@ class _RetHomeState extends State<RetHome> {
         }),
       ),
       body: pages[selectedIndex],
-      
     );
   }
 }
+

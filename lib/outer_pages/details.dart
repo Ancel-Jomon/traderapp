@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
@@ -31,9 +31,9 @@ class _DetailsPageState extends State<DetailsPage> {
 
   void onPressed(BuildContext context) {
 
-    final user =FirebaseAuth.instance.currentUser;
+  //  final user =FirebaseAuth.instance.currentUser;
 
-    final uid=user?.uid;
+   // final uid=user?.uid;
 
     if (selectedOption == 'supplier') {
       

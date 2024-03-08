@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/components/bottomitems.dart';
 //import 'package:traderapp/components/bottomitems.dart';
 import 'package:traderapp/components/draweritems.dart';
-import 'package:traderapp/loginorregister.dart';
-import 'package:traderapp/services/firebaseauthentication.dart';
+//import 'package:traderapp/loginorregister.dart';
+import 'package:traderapp/outer_pages/logout.dart';
+//import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:traderapp/supplierpages/mainpages/homepage.dart';
 import 'package:traderapp/supplierpages/mainpages/messagepage.dart';
 import 'package:traderapp/supplierpages/mainpages/orderpage.dart';
@@ -24,12 +25,7 @@ class _SupHomeState extends State<SupHome> {
 
   final pages = [HomePage(), MessagePage(), OrderPage(), ProfilePage()];
 
-  void logout(){
-       FireBaseAuthentication().signOut();
-
-       Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginOrRegister(),));
-
-  }
+  
   void onPressed() {
     Navigator.pushNamed(context, '/AddProduct');
   }
@@ -50,7 +46,7 @@ class _SupHomeState extends State<SupHome> {
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         foregroundColor: Theme.of(context).colorScheme.tertiary,
-      actions: [IconButton(onPressed: logout,icon: const Icon(Icons.logout))]),
+      actions: logoutPopupMenuList(context)),
       drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Column(
