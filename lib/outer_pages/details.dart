@@ -43,7 +43,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   void onPressed(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    log('safetill here');
+    
     final uid = user?.uid;
 
     if (selectedOption == 'supplier') {

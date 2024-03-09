@@ -1,14 +1,19 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/models/current_userdetails.dart';
+import 'package:traderapp/models/retailer.dart';
+import 'package:traderapp/models/supplier.dart';
 import 'package:traderapp/services/firebaseauthentication.dart';
+import 'package:traderapp/services/firestoreoptions.dart';
 //import 'package:traderapp/themes.dart';
 
 class LoginPage extends StatelessWidget {
-
-  
   final void Function()? changepage;
   LoginPage({super.key, required this.changepage});
 
@@ -19,16 +24,27 @@ class LoginPage extends StatelessWidget {
   void login(BuildContext context) async {
     final fireBaseAuthentication = FireBaseAuthentication();
 
-    await fireBaseAuthentication.signInWithEmailPassword(
-        _email.text.trim(), _pword.text.trim()).then((value) => navigate(context),);
+    await fireBaseAuthentication
+        .signInWithEmailPassword(_email.text.trim(), _pword.text.trim())
+        .then(
+          (value) => navigate(context),
+        );
   }
 
-  navigate(BuildContext context){
-    final user=FirebaseAuth.instance.currentUser;
-    if (user!=null) {
-      
+  navigate(BuildContext context) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      log('imhere');
+
+      await FirestoreReadUser().readUserInfo().then((myuser) {
+        if (myuser is Supplier) {
+          log('here baby');
+          Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (_) => false);
+        } else if (myuser is Retailer) {
+          Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (_) => false);
+        }
+      });
     }
-    Navigator.pushNamed(context, '/RetHome');
   }
 
   @override

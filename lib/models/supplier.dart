@@ -1,6 +1,6 @@
 import 'package:traderapp/models/user.dart';
 
-class Supplier extends User {
+class Supplier extends MyUser {
   String supplierName;
   String scompany, sphno, saddress;
  
