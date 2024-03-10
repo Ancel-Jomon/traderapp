@@ -6,11 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
-import 'package:traderapp/models/current_userdetails.dart';
+//import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/supplier.dart';
+//import 'package:traderapp/retailerpages/home.dart';
 import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
+//import 'package:traderapp/supplierpages/home.dart';
 //import 'package:traderapp/themes.dart';
 
 class LoginPage extends StatelessWidget {
@@ -21,7 +23,7 @@ class LoginPage extends StatelessWidget {
 
   final TextEditingController _pword = TextEditingController();
 
-  void login(BuildContext context) async {
+   login(BuildContext context) async {
     final fireBaseAuthentication = FireBaseAuthentication();
 
     await fireBaseAuthentication
@@ -34,8 +36,6 @@ class LoginPage extends StatelessWidget {
   navigate(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      log('imhere');
-
       await FirestoreReadUser().readUserInfo().then((myuser) {
         if (myuser is Supplier) {
           log('here baby');

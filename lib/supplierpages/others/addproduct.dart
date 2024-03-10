@@ -4,6 +4,7 @@ import 'package:traderapp/models/products_draft.dart';
 import 'package:traderapp/models/product.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/services/firestoreproductoptions.dart';
 
 class AddProduct extends StatelessWidget {
   AddProduct({super.key});
@@ -33,9 +34,12 @@ class AddProduct extends StatelessWidget {
   }
 
   onPressed(BuildContext context) {
+
     final Product product = Product(
         productName: nameTextController.text,
         productPrice: int.parse(priceTextController.text));
+
+    FirestoreProduct().addProductInfo(product);
     Provider.of<ProductsDraft>(context, listen: false).addProduct(product);
 
     Navigator.pop(context);

@@ -1,10 +1,14 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/models/products_draft.dart';
-import 'package:traderapp/components/producttile.dart';
-import 'package:traderapp/models/product.dart';
+import 'package:traderapp/services/firestoreproductoptions.dart';
+import 'package:traderapp/supplierpages/others/loadproducts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  
+  Stream<QuerySnapshot>? productStream = FirestoreProduct().readProductInfo();
+     
+
+  
+
   @override
   Widget build(BuildContext context) {
     TabController controller = TabController(length: 2, vsync: this);
@@ -43,18 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Expanded(
                     child: Container(
                   child: TabBarView(controller: controller, children: [
-                    Container(
-                        child: ListView.builder(
-                      itemCount: value.listOfProducts().length,
-                      itemBuilder: (context, index) {
-                        Product product = value.listOfProducts()[index];
-                        return Card(
-                          child: ProductTile(
-                            product: product,
-                          ),
-                        );
-                      },
-                    )),
+                    Container(child: ListProducts().allProducts(productStream)),
                     Container(
                       child: const Center(child: Text('INSIGHTS')),
                     )

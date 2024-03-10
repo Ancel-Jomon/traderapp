@@ -38,3 +38,14 @@ class FirestoreReadUser {
     
   }
 }
+
+class FirestoreWriteUser{
+  final user = FirebaseAuth.instance.currentUser;
+
+  final docref = FirebaseFirestore.instance.collection('userdetails');
+
+
+
+}
+
+
