@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/models/products_draft.dart';

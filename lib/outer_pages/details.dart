@@ -8,7 +8,6 @@ import 'package:traderapp/models/supplier.dart';
 //import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
 //import 'package:traderapp/themes.dart';
-import 'dart:developer' show log;
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});

@@ -4,7 +4,6 @@ import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/supplier.dart';
 import 'package:traderapp/models/user.dart';
-import 'dart:developer' show log;
 
 class FirestoreAddUser {
   final CollectionReference userdetails =
