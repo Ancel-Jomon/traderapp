@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:traderapp/themes.dart';
 
 class MyTextFeild extends StatelessWidget {
-  final hinttext;
+  final  String hinttext;
   final TextEditingController textController;
   
  const   MyTextFeild({super.key, required this.hinttext,required this.textController});

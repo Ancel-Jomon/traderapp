@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:traderapp/components/suppliertile.dart';
-import 'package:traderapp/models/supplier.dart';
 import 'package:traderapp/models/supplierdraft.dart';
+import 'package:traderapp/retailerpages/others/loadsuppliers.dart';
+import 'package:traderapp/services/firestoreconnectionoptions.dart';
 
 class RetHomePage extends StatefulWidget {
   const RetHomePage({super.key});
@@ -13,7 +14,11 @@ class RetHomePage extends StatefulWidget {
   State<RetHomePage> createState() => _RetHomePageState();
 }
 
-class _RetHomePageState extends State<RetHomePage> with TickerProviderStateMixin {
+class _RetHomePageState extends State<RetHomePage>
+    with TickerProviderStateMixin {
+
+      Stream<QuerySnapshot>? supplierStream=FirestoreConnection().readSupplierList();
+  
   @override
   Widget build(BuildContext context) {
     TabController controller = TabController(length: 2, vsync: this);
@@ -44,15 +49,7 @@ class _RetHomePageState extends State<RetHomePage> with TickerProviderStateMixin
                     child: Container(
                   child: TabBarView(controller: controller, children: [
                     Container(
-                        child: ListView.builder(
-                      itemCount: value.listOfSuppliers().length,
-                      itemBuilder: (context, index) {
-                        Supplier supplier = value.listOfSuppliers()[index];
-                        return Card(
-                          child:SupplierTile(supplier: supplier)
-                        );
-                      },
-                    )),
+                        child:ListSuppliers().allSuppliers(supplierStream)),
                     Container(
                       child: const Center(child: Text('INSIGHTS')),
                     )

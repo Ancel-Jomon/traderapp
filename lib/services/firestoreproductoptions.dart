@@ -7,7 +7,7 @@ class FirestoreProduct {
   final user = FirebaseAuth.instance.currentUser;
 
   final docref = FirebaseFirestore.instance.collection('products');
-
+  
   void addProductInfo(Product product) async {
     final docum = product.toFirestore();
     docum['uid'] = '/userdetails/${user?.uid}';

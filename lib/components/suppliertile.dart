@@ -1,12 +1,15 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:traderapp/models/supplier.dart';
 
 class SupplierTile extends StatelessWidget {
- final Supplier supplier;
-  const SupplierTile({super.key,required this.supplier});
+ final  DocumentSnapshot<Map<String,dynamic>?> snapshot;
+  const SupplierTile({super.key,required this.snapshot});
  
   @override
   Widget build(BuildContext context) {
-    return ListTile(title: Text(supplier.supplierName));
+   final  data=snapshot.data();
+   
+    return ListTile(title: Text(data?['name']));
   }
 }
