@@ -2,8 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:traderapp/models/supplierdraft.dart';
 import 'package:traderapp/retailerpages/others/loadsuppliers.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 
@@ -16,14 +14,13 @@ class RetHomePage extends StatefulWidget {
 
 class _RetHomePageState extends State<RetHomePage>
     with TickerProviderStateMixin {
+  Stream<QuerySnapshot>? supplierStream =
+      FirestoreConnection().readSupplierList();
 
-      Stream<QuerySnapshot>? supplierStream=FirestoreConnection().readSupplierList();
-  
   @override
   Widget build(BuildContext context) {
     TabController controller = TabController(length: 2, vsync: this);
-    return Consumer<SupplierDraft>(
-        builder: (context, value, child) => Column(
+    return Column(
               children: [
                 Container(
                   padding: const EdgeInsets.only(top: 30),
@@ -49,13 +46,13 @@ class _RetHomePageState extends State<RetHomePage>
                     child: Container(
                   child: TabBarView(controller: controller, children: [
                     Container(
-                        child:ListSuppliers().allSuppliers(supplierStream)),
+                        child: ListSuppliers().allSuppliers(supplierStream)),
                     Container(
                       child: const Center(child: Text('INSIGHTS')),
                     )
                   ]),
                 ))
               ],
-            ));
+            );
   }
 }

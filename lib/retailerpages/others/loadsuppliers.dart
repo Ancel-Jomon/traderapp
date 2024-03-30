@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/suppliertile.dart';
+import 'package:traderapp/retailerpages/secondarypages/listsupplierproducts.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 
 class ListSuppliers {
@@ -10,8 +11,8 @@ class ListSuppliers {
       DocumentSnapshot<Map<String, dynamic>?> documentSnapshot) async {
     final DocumentSnapshot<Map<String, dynamic>> docsnap =
         await FirestoreConnection().collectSupplierInfo(documentSnapshot);
-        log(docsnap.data().toString());
-  return docsnap;
+
+    return docsnap;
   }
 
   Widget allSuppliers(Stream<QuerySnapshot>? stream) {
@@ -37,13 +38,24 @@ class ListSuppliers {
                     future: suppliertiledetail(documentSnapshot),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        final DocumentSnapshot<Map<String, dynamic>?> snap=snapshot.data!;
-                        log(snap.data().toString());
+                        final DocumentSnapshot<Map<String, dynamic>?> snap =
+                            snapshot.data!;
+                            
+                        final data =snap.id;
                         return Card(
-                          child: SupplierTile(snapshot: snap)
-                        );
-                      }
-                      else{
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                             PlaceOrder(id: data,),
+                                      ));
+                                },
+                                child: SizedBox(
+                                    height: 100,
+                                    child: SupplierTile(snapshot: snap))));
+                      } else {
                         return const CircularProgressIndicator();
                       }
                     },

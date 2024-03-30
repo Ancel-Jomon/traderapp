@@ -1,37 +1,30 @@
 
-
-
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:traderapp/models/user.dart';
 
-class FirestoreConnection{
+class FirestoreConnection {
   final user = FirebaseAuth.instance.currentUser;
 
   final conref = FirebaseFirestore.instance.collection('connections');
   final userref = FirebaseFirestore.instance.collection('userdetails');
 
-
   Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierList() {
-    
-    final data= conref.where('retailer_id',isEqualTo: '/userdetails/${user?.uid}'
-).snapshots();
+    final data = conref
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}')
+        .snapshots();
 
     return data;
   }
 
-   Future<DocumentSnapshot<Map<String,dynamic>>> collectSupplierInfo(DocumentSnapshot<Map<String,dynamic>?> snapshot)async{
-      final data= snapshot.data();
-      print(data);
-      final String supplierloc=data?['supplier_id'];
-      final supplierid=supplierloc.substring(13);
-      log(supplierid);
-      final doc = await userref.doc(supplierid).get();
-      print(doc.data());
-      return doc;
+  Future<DocumentSnapshot<Map<String, dynamic>>> collectSupplierInfo(
+      DocumentSnapshot<Map<String, dynamic>?> snapshot) async {
+    final data = snapshot.data();
 
+    final String supplierloc = data?['supplier_id'];
+    final supplierid = supplierloc.substring(13);
+
+    final doc = await userref.doc(supplierid).get();
+
+    return doc;
   }
-
 }

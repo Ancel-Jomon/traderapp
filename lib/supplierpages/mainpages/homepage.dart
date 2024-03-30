@@ -25,8 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController controller = TabController(length: 2, vsync: this);
-    return Consumer<ProductsDraft>(
-        builder: (context, value, child) => Column(
+    return Column(
               children: [
                 Container(
                   padding: const EdgeInsets.only(top: 30),
@@ -58,6 +57,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ]),
                 ))
               ],
-            ));
+            );
   }
 }

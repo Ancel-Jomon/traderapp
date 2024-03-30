@@ -26,12 +26,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ProductsDraft()),
-        ChangeNotifierProvider(create: (context) => SupplierDraft()),
-      ],
-      builder: (context, child) => MaterialApp(
+    return  MaterialApp(
         title: '',
         theme: Themes().lightmode,
         home: const PreLogin(),
@@ -43,8 +38,8 @@ class MyApp extends StatelessWidget {
           '/RetHome':(context) => RetHome(),
           '/LoginOrRegister':(context) => LoginOrRegister()
         },
-      ),
-    );
+      )
+    ;
   }
 }
 

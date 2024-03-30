@@ -18,3 +18,12 @@ class FirestoreProduct {
     return docref.where('uid',isEqualTo: '/userdetails/${user?.uid}').snapshots();
   }
 }
+ class FireretProduct{
+  
+  
+  final docref = FirebaseFirestore.instance.collection('products');
+  Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(String id) {
+    return docref.where('uid',isEqualTo: '/userdetails/$id').snapshots();
+  }
+
+ }
