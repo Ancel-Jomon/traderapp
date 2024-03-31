@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:traderapp/components/button.dart';
+import 'package:traderapp/models/orderdraft.dart';
 import 'package:traderapp/retailerpages/others/loadproduct.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
 
@@ -19,40 +23,52 @@ class _PlaceOrderState extends State<PlaceOrder> {
     return FireretProduct().readSupplierProduct(id);
   }
 
-  onPressed() {}
+  onPressed() {
+    print(Provider.of<OrderDraft>(context, listen: false).viewOderItems());
+    Provider.of<OrderDraft>(context, listen: false).emptyOrderMap();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.tertiary,
-      appBar: AppBar(
-        title: const Text("Place Order"),
-        backgroundColor: Theme.of(context).colorScheme.background,
-        foregroundColor: Theme.of(context).colorScheme.tertiary,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                "Products",
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    fontSize: 25),
+    return PopScope(onPopInvoked: (didPop) {
+    
+      Provider.of<OrderDraft>(context, listen: false).emptyOrderMap();
+    },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        appBar: AppBar(
+          title: const Text("Place Order"),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          foregroundColor: Theme.of(context).colorScheme.tertiary,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  "Products",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      fontSize: 25),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              children: [const LoadProducts().allProducts(stream(widget.id))],
+            Expanded(
+              child: Column(
+                children: [const LoadProducts().allProducts(stream(widget.id))],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30),
-            child: MyButton(onPressed: onPressed, msg: "place order"),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Consumer<OrderDraft>(
+                builder: (context, value, child) =>
+                    MyButton(onPressed: onPressed, msg: "place order :total ${value.totalPrice()}"),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

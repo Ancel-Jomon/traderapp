@@ -4,10 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/firebase_options.dart';
-import 'package:traderapp/models/products_draft.dart';
 
 import 'package:traderapp/loginorregister.dart';
-import 'package:traderapp/models/supplierdraft.dart';
+import 'package:traderapp/models/orderdraft.dart';
 
 import 'package:traderapp/outer_pages/details.dart';
 import 'package:traderapp/retailerpages/home.dart';
@@ -17,7 +16,7 @@ import 'package:traderapp/themes.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   runApp(const MyApp());
 }
 
@@ -26,7 +25,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return ChangeNotifierProvider(
+      create: (context) => OrderDraft(),
+      child: MaterialApp(
         title: '',
         theme: Themes().lightmode,
         home: const PreLogin(),
@@ -35,11 +36,11 @@ class MyApp extends StatelessWidget {
           '/DetailsPage': (context) => DetailsPage(),
           '/SupHome': (context) => SupHome(),
           '/AddProduct': (context) => AddProduct(),
-          '/RetHome':(context) => RetHome(),
-          '/LoginOrRegister':(context) => LoginOrRegister()
+          '/RetHome': (context) => RetHome(),
+          '/LoginOrRegister': (context) => LoginOrRegister()
         },
-      )
-    ;
+      ),
+    );
   }
 }
 
@@ -48,15 +49,18 @@ class PreLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform) , builder: (context, snapshot) {
-      switch (snapshot.connectionState) {
-        case ConnectionState.done:
-              return const LoginOrRegister();
-         
-        default:
-        return CircularProgressIndicator();
-      }
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            return const LoginOrRegister();
 
-    },);
+          default:
+            return CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
