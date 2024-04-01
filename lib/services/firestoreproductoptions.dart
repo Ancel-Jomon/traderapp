@@ -6,24 +6,24 @@ import 'package:traderapp/models/product.dart';
 class FirestoreProduct {
   final user = FirebaseAuth.instance.currentUser;
 
-  final docref = FirebaseFirestore.instance.collection('products');
+  final conref = FirebaseFirestore.instance.collection('products');
   
   void addProductInfo(Product product) async {
     final docum = product.toFirestore();
     docum['uid'] = '/userdetails/${user?.uid}';
-    await docref.doc().set(docum);
+    await conref.doc().set(docum);
   }
 
  Stream<QuerySnapshot<Map<String, dynamic>>> readProductInfo() {
-    return docref.where('uid',isEqualTo: '/userdetails/${user?.uid}').snapshots();
+    return conref.where('uid',isEqualTo: '/userdetails/${user?.uid}').snapshots();
   }
 }
  class FireretProduct{
   
   
-  final docref = FirebaseFirestore.instance.collection('products');
+  final conref = FirebaseFirestore.instance.collection('products');
   Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(String id) {
-    return docref.where('uid',isEqualTo: '/userdetails/$id').snapshots();
+    return conref.where('uid',isEqualTo: '/userdetails/$id').snapshots();
   }
 
  }

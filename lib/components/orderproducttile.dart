@@ -16,13 +16,11 @@ class OrderProducttile extends StatefulWidget {
 
 class _OrderProducttileState extends State<OrderProducttile> {
   increment() {
-    log('increment pressed');
     Provider.of<OrderDraft>(context, listen: false)
         .addOrderItem(widget.product);
   }
 
   decrement() {
-    log('decrement pressed');
     Provider.of<OrderDraft>(context, listen: false)
         .removeOrderItem(widget.product);
   }
@@ -38,7 +36,7 @@ class _OrderProducttileState extends State<OrderProducttile> {
               const CircleAvatar(
                   radius: 40,
                   backgroundImage: NetworkImage(
-                      'https://www.pockettactics.com/wp-content/sites/pockettactics/2022/12/Guardian-Tales-tier-list-1.jpg')),
+                      'http://2.bp.blogspot.com/-hdkXfWeRV4A/TdizZhkLhhI/AAAAAAAAHUA/GlC3S4HL8vE/s1600/139865_1.jpg')),
               const SizedBox(
                 width: 20,
               ),
@@ -46,7 +44,7 @@ class _OrderProducttileState extends State<OrderProducttile> {
                 child: Column(
                   children: [
                     Text(
-                      widget.product.id ?? "",
+                      widget.product.productName ,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(

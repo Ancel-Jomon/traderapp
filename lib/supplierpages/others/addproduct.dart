@@ -40,7 +40,7 @@ class AddProduct extends StatelessWidget {
         productPrice: int.parse(priceTextController.text));
 
     FirestoreProduct().addProductInfo(product);
-    Provider.of<ProductsDraft>(context, listen: false).addProduct(product);
+    
 
     Navigator.pop(context);
 

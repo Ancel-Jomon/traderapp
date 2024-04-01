@@ -7,12 +7,12 @@ class OrderDraft extends ChangeNotifier {
   int total = 0;
  final Map<Product, int> orderitems = {};
 
-  Map viewOderItems() {
+  Map<Product, int> viewOderItems() {
     return orderitems;
   }
 
   int viewOderItemCount(Product orderitem) {
-    log('item count called');
+    
     return orderitems[orderitem] ?? 0;
   }
 
@@ -48,7 +48,7 @@ class OrderDraft extends ChangeNotifier {
   }
 
   int totalPrice(){
-    log('total called');
+   
     
    return total;
     

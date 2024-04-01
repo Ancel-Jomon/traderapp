@@ -1,9 +1,8 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/suppliertile.dart';
-import 'package:traderapp/retailerpages/secondarypages/listsupplierproducts.dart';
+import 'package:traderapp/retailerpages/secondarypages/placeorders.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 
 class ListSuppliers {

@@ -7,7 +7,9 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/models/orderdraft.dart';
+import 'package:traderapp/models/product.dart';
 import 'package:traderapp/retailerpages/others/loadproduct.dart';
+import 'package:traderapp/services/firestoreorderoptions.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
 
 class PlaceOrder extends StatefulWidget {
@@ -23,9 +25,19 @@ class _PlaceOrderState extends State<PlaceOrder> {
     return FireretProduct().readSupplierProduct(id);
   }
 
-  onPressed() {
-    print(Provider.of<OrderDraft>(context, listen: false).viewOderItems());
+  onPressed(String id) {
+    final Map<Product,int> map=Provider.of<OrderDraft>(context, listen: false).viewOderItems();
+    FirestoreOrder().placeOrderitems(map, id);
     Provider.of<OrderDraft>(context, listen: false).emptyOrderMap();
+
+     Navigator.pop(context);
+
+    showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+              title: Text('Order Placed!'),
+              backgroundColor: Colors.white,
+            ));
   }
 
   @override
@@ -64,7 +76,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
               padding: const EdgeInsets.only(bottom: 30),
               child: Consumer<OrderDraft>(
                 builder: (context, value, child) =>
-                    MyButton(onPressed: onPressed, msg: "place order :total ${value.totalPrice()}"),
+                    MyButton(onPressed: ()=>onPressed(widget.id), msg: "place order :total ${value.totalPrice()}"),
               ),
             )
           ],
