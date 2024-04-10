@@ -3,8 +3,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:traderapp/models/products_draft.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
 import 'package:traderapp/supplierpages/others/loadproducts.dart';
 

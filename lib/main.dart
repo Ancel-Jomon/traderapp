@@ -58,7 +58,7 @@ class PreLogin extends StatelessWidget {
             return const LoginOrRegister();
 
           default:
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
         }
       },
     );

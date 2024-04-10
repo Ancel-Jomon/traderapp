@@ -25,9 +25,9 @@ class _PlaceOrderState extends State<PlaceOrder> {
     return FireretProduct().readSupplierProduct(id);
   }
 
-  onPressed(String id) {
+  onPressed(String id,int total) {
     final Map<Product,int> map=Provider.of<OrderDraft>(context, listen: false).viewOderItems();
-    FirestoreOrder().placeOrderitems(map, id);
+    FirestoreOrder().placeOrderitems(map, id,total);
     Provider.of<OrderDraft>(context, listen: false).emptyOrderMap();
 
      Navigator.pop(context);
@@ -75,8 +75,9 @@ class _PlaceOrderState extends State<PlaceOrder> {
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: Consumer<OrderDraft>(
-                builder: (context, value, child) =>
-                    MyButton(onPressed: ()=>onPressed(widget.id), msg: "place order :total ${value.totalPrice()}"),
+                builder: (context, value, child) {
+                    int total=value.totalPrice();
+                    return MyButton(onPressed: ()=>onPressed(widget.id,total), msg: "place order :total $total");}
               ),
             )
           ],

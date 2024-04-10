@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
     if (user != null) {
       await FirestoreReadUser().readUserInfo().then((myuser) {
         if (myuser is Supplier) {
-          log('here baby');
+          
           Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (_) => false);
         } else if (myuser is Retailer) {
           Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (_) => false);

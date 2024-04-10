@@ -23,8 +23,7 @@ class ListSuppliers {
         }
         if (snapshot.hasData) {
           switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return const Text('safe');
+            
             case ConnectionState.active:
               return ListView.builder(
                 
@@ -56,7 +55,7 @@ class ListSuppliers {
                                     height: 100,
                                     child: SupplierTile(snapshot: snap))));
                       } else {
-                        return const CircularProgressIndicator();
+                        return  const Center(child: CircularProgressIndicator());
                       }
                     },
                   );
@@ -64,15 +63,12 @@ class ListSuppliers {
                 },
               );
 
-            case ConnectionState.waiting:
-              return const CircularProgressIndicator(
-                color: Colors.black,
-              );
+            
             default:
               return const CircularProgressIndicator();
           }
         }
-        return const Text('error lol');
+        return const Center(child: CircularProgressIndicator(),);
       },
     );
   }

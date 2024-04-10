@@ -27,4 +27,15 @@ class FirestoreConnection {
 
     return doc;
   }
+  Future<DocumentSnapshot<Map<String, dynamic>>> collectRetailerInfo(
+      DocumentSnapshot<Map<String, dynamic>?> snapshot) async {
+    final data = snapshot.data();
+
+    final String retailerloc = data?['retailerid'];
+    final retailerid = retailerloc.substring(13);
+
+    final doc = await userref.doc(retailerid).get();
+
+    return doc;
+  }
 }

@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:traderapp/services/firestoreorderoptions.dart';
+import 'package:traderapp/supplierpages/others/loadorders.dart';
 
 class OrderPage extends StatelessWidget {
-  const OrderPage({super.key});
+   OrderPage({super.key});
+
+  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrders();
+  
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(children: [Expanded(child: ListOrders().allOrders(orderstream),)],);
   }
 }
