@@ -1,18 +1,17 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:traderapp/components/button.dart';
+import 'package:traderapp/components/deleteordertile.dart';
+import 'package:traderapp/services/firestoreorderoptions.dart';
 
-class DeleteOrder extends StatelessWidget {
-  const DeleteOrder({super.key});
+class DeleteOrder{
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('delete order?'),
-      content: const Text('are you sure you want to delete?'),
-      actions: [
-        MyButton(onPressed: () =>Navigator.pop(context,true), msg: 'delete'),
-        MyButton(onPressed: () => Navigator.pop(context), msg: 'confirm')
-      ],
-    );
-  } 
+  deleteorder(BuildContext context,DocumentSnapshot snap){
+     showDialog(context: context, builder:(context) =>const DeleteOrderTile(),).then((value ) {
+          if (value ?? false) {
+            FirestoreOrder().deleteorderitems(snap);
+          }
+    });
+  }
 }

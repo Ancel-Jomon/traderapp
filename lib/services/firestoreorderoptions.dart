@@ -100,4 +100,16 @@ class FirestoreOrder {
     batch.update(id, {'orderitems': ids, 'total': total});
     await batch.commit();
   }
+
+  void deleteorderitems(DocumentSnapshot snap)async{
+
+    final id=snap.id;
+    final DocumentSnapshot<Map<String,dynamic>> snapshot=await orderref.doc(id).get();
+    for(var e in snapshot.data()!['orderitems']){
+      batch.delete(e);
+    }
+    batch.delete(snap.reference);
+    batch.commit();
+
+  }
 }

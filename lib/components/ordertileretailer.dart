@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
+import 'package:traderapp/retailerpages/secondarypages/deleteorder.dart';
 import 'package:traderapp/retailerpages/secondarypages/updateorders.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 import 'package:traderapp/retailerpages/others/loadorderitems.dart';
@@ -75,7 +76,9 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
                 const SizedBox(
                   width: 10,
                 ),
-                MyButton(onPressed: () {}, msg: "delete")
+                MyButton(onPressed: () {
+                  DeleteOrder().deleteorder(context,widget.snapshot);
+                }, msg: "delete")
               ],
             ),
           )
