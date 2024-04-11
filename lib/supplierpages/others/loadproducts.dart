@@ -24,15 +24,12 @@ class ListProducts {
                 },
               );
 
-            case ConnectionState.waiting:
-              return const CircularProgressIndicator(
-                color: Colors.black,
-              );
+           
             default:
-              return const CircularProgressIndicator();
+              return const Center(child:  CircularProgressIndicator());
           }
         }
-        return const Text('error lol');
+        return const Center(child:  CircularProgressIndicator());
       },
     );
   }

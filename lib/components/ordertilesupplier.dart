@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 import 'package:traderapp/supplierpages/others/loadorderitems.dart';
 
-class OrderTile extends StatelessWidget {
+class OrderTileSupplier extends StatelessWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
-  const OrderTile({super.key, required this.snapshot});
+  const OrderTileSupplier({super.key, required this.snapshot});
 
   Future<DocumentSnapshot<Map<String, dynamic>>> retailerdetail(
       DocumentSnapshot<Map<String, dynamic>?> documentSnapshot) async {

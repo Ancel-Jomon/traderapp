@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:traderapp/components/ordertilesupplier.dart';
+import 'package:traderapp/components/ordertileretailer.dart';
 
 class ListOrders {
   Widget allOrders(Stream<QuerySnapshot> stream) {
@@ -12,7 +12,7 @@ class ListOrders {
             return ListView.builder(itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             DocumentSnapshot<Map<String,dynamic>?> documentSnapshot=snapshot.data!.docs[index] as DocumentSnapshot<Map<String,dynamic>?>;
-            return  Card(child: OrderTileSupplier(snapshot: documentSnapshot));
+            return  Card(child: OrderTileRetailer(snapshot: documentSnapshot));
           },
         );
             

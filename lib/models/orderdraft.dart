@@ -1,10 +1,13 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:traderapp/models/product.dart';
 
 class OrderDraft extends ChangeNotifier {
   int total = 0;
  final Map<Product, int> orderitems = {};
+ final Map<Product,String> existingitems={};
 
   Map<Product, int> viewOderItems() {
     return orderitems;
@@ -53,5 +56,14 @@ class OrderDraft extends ChangeNotifier {
     
   }
 
+  void refillorders(Product orderitem,int count,String id){
+    orderitems[orderitem] = count;
+    total=total+count*orderitem.productPrice;
+    existingitems[orderitem]=id;
+    
+    notifyListeners();
+  }
+    
+ Map<Product, String>  itemspresent(){return existingitems;}
  
 }

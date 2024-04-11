@@ -6,7 +6,7 @@ import 'package:traderapp/supplierpages/others/loadorders.dart';
 class OrderPage extends StatelessWidget {
    OrderPage({super.key});
 
-  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrders();
+  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrdersfor();
   
 
   @override

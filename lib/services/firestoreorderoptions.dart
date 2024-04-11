@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:traderapp/models/orderdraft.dart';
 import 'package:traderapp/models/product.dart';
 
 class FirestoreOrder {
@@ -12,38 +16,88 @@ class FirestoreOrder {
   FirestoreOrder() {
     orderref = db.collection('orders');
     itemref = db.collection('orderitems');
-    batch=db.batch();
+    batch = db.batch();
   }
-  void placeOrderitems(Map<Product, int> map,String id,int total) async{
-    List ids=[];
-    for (var e in map.entries){
-      var docref=itemref.doc();
+  void placeOrderitems(Map<Product, int> map, String id, int total) async {
+    List<DocumentReference> ids = [];
+    for (var e in map.entries) {
+      var docref = itemref.doc();
       ids.add(docref);
-      var docum=e.key.toFirestore();
-      docum['quantity']= e.value;
+      var docum = e.key.toFirestore();
+      docum['quantity'] = e.value;
       batch.set(docref, docum);
     }
     await batch.commit();
+    placeOrder(id, ids, total);
+  }
 
-    final docum={
-        'retailerid':'/userdetails/${user?.uid}',
-        'supplierid':'/userdetails/$id',
-        'timestamp':FieldValue.serverTimestamp(),
-        'orderitems':ids,
-        'total':total
+  void placeOrder(String id, List<DocumentReference> ids, int total) async {
+    final docum = {
+      'retailer_id': '/userdetails/${user?.uid}',
+      'supplier_id': '/userdetails/$id',
+      'timestamp': FieldValue.serverTimestamp(),
+      'orderitems': ids,
+      'total': total
     };
     await orderref.doc().set(docum);
   }
 
-
-  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrders(){
-   return orderref.where('supplierid',isEqualTo: '/userdetails/${user?.uid}').snapshots();
-
+  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersfor() {
+    return orderref
+        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}')
+        .snapshots();
   }
 
-  Future<DocumentSnapshot<Map<String,dynamic>>> orderitemdetail(String location) async{
+  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforRetailer() {
+    return orderref
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}')
+        .snapshots();
+  }
 
+  Future<DocumentSnapshot<Map<String, dynamic>>> orderitemdetail(
+      String location) async {
     //final oderitem = location.substring(13);
     return await db.doc(location).get();
+  }
+
+  Future<(Product, int)> refillcartwithitems(String path) async {
+    final snap = await db.doc(path).get();
+
+    final prod = await db.collection('products').doc(snap['id']).get();
+
+    Product p = Product.fromFirestore(prod);
+    final int q = snap['quantity'];
+    return (p, q);
+  }
+
+  void updateOrderItems(
+      Map<Product, int> orderitemsmap,
+      Map<Product, String> existingitems,
+      DocumentReference id,
+      int total) async {
+    List<DocumentReference> ids = [];
+    
+    for (var e in orderitemsmap.entries) {
+      if (existingitems.containsKey(e.key)) {
+        if (e.value != 0) {
+          final docref = itemref.doc(existingitems[e.key]!.substring(11));
+
+          ids.add(docref);
+          batch.update(docref, {'quantity': e.value});
+        } else if (e.value == 0) {
+          final docref = itemref.doc(existingitems[e.key]!.substring(11));
+          batch.delete(docref);
+        }
+      } else {
+        var docref = itemref.doc();
+        ids.add(docref);
+        var docum = e.key.toFirestore();
+        docum['quantity'] = e.value;
+        batch.set(docref, docum);
+      }
+    }
+    
+    batch.update(id, {'orderitems': ids, 'total': total});
+    await batch.commit();
   }
 }

@@ -11,7 +11,9 @@ class FirestoreProduct {
   void addProductInfo(Product product) async {
     final docum = product.toFirestore();
     docum['uid'] = '/userdetails/${user?.uid}';
-    await conref.doc().set(docum);
+    final id=conref.doc();
+    docum['id']=id.path.substring(9);
+    await id.set(docum);
   }
 
  Stream<QuerySnapshot<Map<String, dynamic>>> readProductInfo() {

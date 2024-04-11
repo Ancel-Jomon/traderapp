@@ -1,11 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
 
-class Product {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+
+class Product extends Equatable{
   final String productName;
   final int productPrice;
   final String? id;
 
-  Product({required this.productName, required this.productPrice,this.id});
+  const Product({required this.productName, required this.productPrice,this.id});
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -20,6 +23,13 @@ class Product {
   ) {
     final id=snapshot.id;
     final data = snapshot.data();
-    return Product(productName: data?['name'], productPrice:data?['price'],id: id);
+    final p= Product(productName: data?['name'], productPrice:data?['price'],id: id);
+   
+    return p;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
+
 }
