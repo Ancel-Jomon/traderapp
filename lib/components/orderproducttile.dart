@@ -6,6 +6,7 @@ import 'package:traderapp/models/product.dart';
 
 class OrderProducttile extends StatefulWidget {
   final Product product;
+  
 
   const OrderProducttile({super.key, required this.product});
 
@@ -26,16 +27,17 @@ class _OrderProducttileState extends State<OrderProducttile> {
 
   @override
   Widget build(BuildContext context) {
+        final ImageProvider<Object>?  image= widget.product.url != null ? NetworkImage(widget.product.url!) :const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>?;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Row(
             children: [
-              const CircleAvatar(
+               CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage(
-                      'http://2.bp.blogspot.com/-hdkXfWeRV4A/TdizZhkLhhI/AAAAAAAAHUA/GlC3S4HL8vE/s1600/139865_1.jpg')),
+                  backgroundImage:image),
               const SizedBox(
                 width: 20,
               ),

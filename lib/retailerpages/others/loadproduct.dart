@@ -21,7 +21,10 @@ class LoadProducts {
                
                 final DocumentSnapshot<Map<String, dynamic>?> snap =
                snapshot.data!.docs[index] as DocumentSnapshot<Map<String, dynamic>?>;
-                return Card(child: OrderProducttile(product: Product.fromFirestore(snap)));
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: Card(child: OrderProducttile(product: Product.fromFirestore(snap))),
+                );
                 
               },
             ),

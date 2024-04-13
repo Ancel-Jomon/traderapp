@@ -7,14 +7,16 @@ class Product extends Equatable{
   final String productName;
   final int productPrice;
   final String? id;
+  final String? url;
 
-  const Product({required this.productName, required this.productPrice,this.id});
+  const Product({required this.productName, required this.productPrice,this.id, this.url});
 
   Map<String, dynamic> toFirestore() {
     return {
       'name': productName,
       'price': productPrice,
-      'id':id
+      'id':id,
+      'imgurl':url
     };
   }
 
@@ -23,7 +25,7 @@ class Product extends Equatable{
   ) {
     final id=snapshot.id;
     final data = snapshot.data();
-    final p= Product(productName: data?['name'], productPrice:data?['price'],id: id);
+    final p= Product(productName: data?['name'], productPrice:data?['price'],id: id,url: data?['imgurl']);
    
     return p;
   }
