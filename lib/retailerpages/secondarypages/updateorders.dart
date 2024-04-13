@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +39,12 @@ class _UpdateOrdersState extends State<UpdateOrders> {
           Provider.of<OrderDraft>(context, listen: false)
               .refillorders(value.$1, value.$2, id));
     }
-    // nxt();
+    
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setCart(widget.snapshot);

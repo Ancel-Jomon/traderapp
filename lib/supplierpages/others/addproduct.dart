@@ -1,12 +1,9 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:traderapp/models/products_draft.dart';
 import 'package:traderapp/models/product.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
@@ -22,7 +19,8 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   XFile? image;
   Uint8List? file;
-  String url='';
+  String? url;
+ bool flag=false;
   
   final TextEditingController nameTextController = TextEditingController();
 
@@ -60,23 +58,27 @@ class _AddProductState extends State<AddProduct> {
             height: 20,
           ),
           MyButton(onPressed: () => onPressed(context), msg: 'save'),
-         
+         showindicator()
         ],
       ),
     );
   }
 
  Widget showindicator(){
-  if(url==''){
+  if(flag){
     return const CircularProgressIndicator();
   }
   else {return const SizedBox.shrink();}
  }
 
   onPressed(BuildContext context) async {
-     showindicator();
-     url=await FireStorage().uploadimage(image!);
+    setState(() {
+       flag=true;
+    });
+     if(image!=null){
+      url=await FireStorage().uploadimage(image!);
 
+     }
     final Product product = Product(
         productName: nameTextController.text,
         productPrice: int.parse(priceTextController.text,),url:url);
@@ -97,7 +99,7 @@ class _AddProductState extends State<AddProduct> {
     }
 
   uploadimage() async {
-    XFile? img = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? img = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 80);
     if (img != null) {
       Uint8List filex= await img.readAsBytes();
       setState(() {

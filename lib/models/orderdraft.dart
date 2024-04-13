@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:traderapp/models/product.dart';

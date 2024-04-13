@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 
 class InboxPage extends StatelessWidget {
+  const InboxPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inbox'),
+        title: const Text('Inbox'),
       ),
       body: ListView(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.request_page),
-            title: Text('Request 1'),
+            leading: const Icon(Icons.request_page),
+            title: const Text('Request 1'),
             onTap: () {
               // Add your action for request item tap
             },
           ),
           ListTile(
-            leading: Icon(Icons.request_page),
-            title: Text('Request 2'),
+            leading: const Icon(Icons.request_page),
+            title: const Text('Request 2'),
             onTap: () {
               // Add your action for request item tap
             },
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text('Message 1'),
+            leading: const Icon(Icons.message),
+            title: const Text('Message 1'),
             onTap: () {
               // Add your action for message item tap
             },
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text('Message 2'),
+            leading: const Icon(Icons.message),
+            title: const Text('Message 2'),
             onTap: () {
               // Add your action for message item tap
             },

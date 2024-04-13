@@ -31,7 +31,7 @@ class OrderTileSupplier extends StatelessWidget {
                   if (snapshot.hasData) {
                     final DocumentSnapshot<Map<String, dynamic>?> snap =
                         snapshot.data!;
-                    return Text('ORDER FROM:${snap['name']}',style: TextStyle(fontSize: 20),);
+                    return Text('ORDER FROM:${snap['name']}',style: const TextStyle(fontSize: 20),);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
