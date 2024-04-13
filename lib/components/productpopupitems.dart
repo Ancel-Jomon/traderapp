@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traderapp/models/product.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
+import 'package:traderapp/supplierpages/secondarypage/updateproduct.dart';
 
 enum MenuActions { delete ,update}
 
@@ -15,6 +16,7 @@ List<PopupMenuButton<MenuActions>> productPopupMenuList(BuildContext context,Pro
               FirestoreProduct().deleteProduct(product.id, product.url);
             }
             case MenuActions.update :
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateProduct(product: product),));
           default:
         }
       },

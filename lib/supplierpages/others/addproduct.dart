@@ -23,12 +23,18 @@ class _AddProductState extends State<AddProduct> {
   XFile? image;
   Uint8List? file;
   String url='';
+  
   final TextEditingController nameTextController = TextEditingController();
 
   final TextEditingController priceTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final def=image != null ? Image.memory(file!):
+          Image.asset(
+            'lib/assets/defprod.png',
+           
+          );
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
@@ -39,12 +45,7 @@ class _AddProductState extends State<AddProduct> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          image != null ? Image.memory(file!,height: 100,width: 100,):
-          Image.asset(
-            'lib/assets/defprod.png',
-            height: 100,
-            width: 100,
-          ),
+          CircleAvatar(radius: 50,backgroundImage: def.image,),
           IconButton(
             onPressed: uploadimage,
             icon: const Icon(Icons.camera),
@@ -58,14 +59,23 @@ class _AddProductState extends State<AddProduct> {
           const SizedBox(
             height: 20,
           ),
-          MyButton(onPressed: () => onPressed(context), msg: 'save')
+          MyButton(onPressed: () => onPressed(context), msg: 'save'),
+         
         ],
       ),
     );
   }
 
+ Widget showindicator(){
+  if(url==''){
+    return const CircularProgressIndicator();
+  }
+  else {return const SizedBox.shrink();}
+ }
+
   onPressed(BuildContext context) async {
-    final url=await FireStorage().uploadimage(image!);
+     showindicator();
+     url=await FireStorage().uploadimage(image!);
 
     final Product product = Product(
         productName: nameTextController.text,
