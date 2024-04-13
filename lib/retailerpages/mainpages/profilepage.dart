@@ -30,13 +30,28 @@ class RetProfilePage extends StatelessWidget {
                 'ID: 123456',
                 style: TextStyle(fontSize: 16),
               ),
+              SizedBox(height: 10),
+              Text(
+                'email: siu@gmail.com',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Pn.no: 9996663331',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Place: Kattapana',
+                style: TextStyle(fontSize: 16),
+              ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileEdit(),
+                      builder: (context) => RetProfileEdit(),
                     ),
                   );
                 },
