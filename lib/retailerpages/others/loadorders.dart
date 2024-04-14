@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/components/ordertileretailer.dart';
 
 class ListOrders {
+  final bool options;// to show options like update or delete
+  ListOrders({required this.options});
   Widget allOrders(Stream<QuerySnapshot> stream) {
     return StreamBuilder<QuerySnapshot>(
       stream: stream,
@@ -23,7 +25,7 @@ class ListOrders {
                       snapshot.data!.docs[index]
                           as DocumentSnapshot<Map<String, dynamic>?>;
                   return Card(
-                      child: OrderTileRetailer(snapshot: documentSnapshot));
+                      child: OrderTileRetailer(snapshot: documentSnapshot,options: options,));
                 },
               );
             } else {

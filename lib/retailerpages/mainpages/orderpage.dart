@@ -5,10 +5,10 @@ import 'package:traderapp/retailerpages/others/loadorders.dart';
 
 class RetOrderPage extends StatelessWidget {
   RetOrderPage({super.key});
-  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrdersforRetailer();
+  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrdersforRetailer(false);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Expanded(child: ListOrders().allOrders(orderstream),)],);
+    return Column(children: [Expanded(child: ListOrders(options: true).allOrders(orderstream),)],);
   }
 }

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/bottomitems.dart';
 //import 'package:traderapp/components/bottomitems.dart';
-import 'package:traderapp/components/draweritems.dart';
 //import 'package:traderapp/loginorregister.dart';
 import 'package:traderapp/outer_pages/logout.dart';
 //import 'package:traderapp/services/firebaseauthentication.dart';
@@ -11,6 +10,7 @@ import 'package:traderapp/supplierpages/mainpages/homepage.dart';
 import 'package:traderapp/supplierpages/mainpages/messagepage.dart';
 import 'package:traderapp/supplierpages/mainpages/orderpage.dart';
 import 'package:traderapp/supplierpages/mainpages/profilepage.dart';
+import 'package:traderapp/supplierpages/others/draweritems.dart';
 //import 'package:traderapp/themes.dart';
 
 class SupHome extends StatefulWidget {
@@ -50,7 +50,7 @@ class _SupHomeState extends State<SupHome> {
       drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Column(
-            children: draweritems,
+            children:[DrawerList().drawerItems(context)] ,
           )),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,

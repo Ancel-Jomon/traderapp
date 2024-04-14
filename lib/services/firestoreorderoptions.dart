@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:traderapp/models/product.dart';
@@ -40,16 +42,28 @@ class FirestoreOrder {
     await orderref.doc().set(docum);
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersfor() {
-    return orderref
+  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforSuppliers( bool value) {
+    if (!value) {
+      return orderref
         .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: false)
         .snapshots();
+    } else {
+      return orderref
+        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: true)
+        .snapshots();
+    }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforRetailer() {
-    return orderref
-        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}')
+  Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforRetailer(bool value) {
+    if (!value) {
+      return orderref
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: false)
         .snapshots();
+    } else {
+      return orderref
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: true)
+        .snapshots();
+    }
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> orderitemdetail(
@@ -109,5 +123,17 @@ class FirestoreOrder {
     batch.delete(snap.reference);
     batch.commit();
 
+  }
+}
+
+class FireSupOrder{
+   final db = FirebaseFirestore.instance;
+   late final CollectionReference<Map<String, dynamic>> orderref;
+   FireSupOrder(){
+     orderref = db.collection('orders');
+   }
+  void deliverOrder(DocumentSnapshot<Map<String,dynamic>?> snap){
+      final id= snap.id;
+      orderref.doc(id).update({'delivered':true});
   }
 }

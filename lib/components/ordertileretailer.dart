@@ -8,8 +8,8 @@ import 'package:traderapp/retailerpages/others/loadorderitems.dart';
 
 class OrderTileRetailer extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
-
-  const OrderTileRetailer({super.key, required this.snapshot});
+  final bool options;
+  const OrderTileRetailer({super.key, required this.snapshot,required this.options});
 
   @override
   State<OrderTileRetailer> createState() => _OrderTileRetailerState();
@@ -57,7 +57,14 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
             ],
           ),
           PerOrderItems(snapshot: widget.snapshot),
-          Padding(
+          showoptions()
+        ],
+      ),
+    );
+  }
+  Widget showoptions(){
+    if(widget.options){
+     return Padding(
             padding: const EdgeInsetsDirectional.only(top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -81,9 +88,10 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
                 }, msg: "delete")
               ],
             ),
-          )
-        ],
-      ),
-    );
+          );
+    }
+    else{
+      return const SizedBox.shrink();
+    }
   }
 }

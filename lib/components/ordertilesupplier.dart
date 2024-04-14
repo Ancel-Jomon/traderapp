@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
+import 'package:traderapp/services/firestoreorderoptions.dart';
 import 'package:traderapp/supplierpages/others/loadorderitems.dart';
 
 class OrderTileSupplier extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
-  const OrderTileSupplier({super.key, required this.snapshot});
+  final bool options;
+  const OrderTileSupplier({super.key, required this.snapshot,required this.options});
 
   @override
   State<OrderTileSupplier> createState() => _OrderTileSupplierState();
@@ -51,19 +55,29 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
             ],
           ),
           PerOrderItems(snapshot: widget.snapshot),
-          Row(mainAxisAlignment: MainAxisAlignment.end,
+          showoptions()
+          
+        ],
+      ),
+    );
+  }
+  Widget showoptions(){
+    if(widget.options){
+     return Row(mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Text('delivered'),
               Switch(value: value, onChanged:(value) {
             setState(() {
              this.value = value;
             });
+            log('here');
+            FireSupOrder().deliverOrder(widget.snapshot);
           },)
             ],
-          ),
-          
-        ],
-      ),
-    );
+          );
+    }
+    else{
+      return const SizedBox.shrink();
+    }
   }
 }

@@ -6,11 +6,11 @@ import 'package:traderapp/supplierpages/others/loadorders.dart';
 class OrderPage extends StatelessWidget {
    OrderPage({super.key});
 
-  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrdersfor();
+  final  Stream<QuerySnapshot> orderstream= FirestoreOrder().retriveOrdersforSuppliers(false);
   
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Expanded(child: ListOrders().allOrders(orderstream),)],);
+    return Column(children: [Expanded(child: ListOrders(options: true).allOrders(orderstream),)],);
   }
 }

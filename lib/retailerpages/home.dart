@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/bottomitems.dart';
-import 'package:traderapp/components/draweritems.dart';
+import 'package:traderapp/retailerpages/others/draweritems.dart';
 import 'package:traderapp/outer_pages/logout.dart';
 import 'package:traderapp/retailerpages/mainpages/homepage.dart';
 import 'package:traderapp/retailerpages/mainpages/messagepage.dart';
@@ -50,7 +50,7 @@ class _RetHomeState extends State<RetHome> {
       drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.secondary,
           child: Column(
-            children: draweritems,
+            children:[ DrawerList().drawerItems(context)],
           )),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
