@@ -34,14 +34,15 @@ class FirestoreOrder {
       'supplier_id': '/userdetails/$id',
       'timestamp': FieldValue.serverTimestamp(),
       'orderitems': ids,
-      'total': total
+      'total': total,
+      'delivered':false
     };
     await orderref.doc().set(docum);
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersfor() {
     return orderref
-        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}')
+        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: false)
         .snapshots();
   }
 
