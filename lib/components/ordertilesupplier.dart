@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 import 'package:traderapp/services/firestoreorderoptions.dart';

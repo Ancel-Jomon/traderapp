@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:traderapp/supplierpages/secondarypage/orderhistory.dart';
 
 class DrawerList {

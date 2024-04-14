@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RetProfileEdit extends StatefulWidget {
-  const RetProfileEdit({super.key});
+class ProfileEdit extends StatefulWidget {
+  const ProfileEdit({super.key});
 
   @override
-  State<RetProfileEdit> createState() => _RetProfileEditState();
+  State<ProfileEdit> createState() => _ProfileEditState();
 }
 
-class _RetProfileEditState extends State<RetProfileEdit> {
+class _ProfileEditState extends State<ProfileEdit> {
   final _formKey = GlobalKey<FormState>();
   String phoneNumber = '';
   String address = '';

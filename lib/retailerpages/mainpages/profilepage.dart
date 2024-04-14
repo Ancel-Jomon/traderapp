@@ -12,28 +12,43 @@ class RetProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-             const CircleAvatar(
+              const CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(
                     'https://upload.wikimedia.org/wikipedia/commons/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg'),
               ),
-             const SizedBox(height: 10),
-             const Text(
+              const SizedBox(height: 10),
+              const Text(
                 'ronaldo',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-             const SizedBox(height: 10),
-            const  Text(
+              const SizedBox(height: 10),
+              const Text(
                 'ID: 123456',
                 style: TextStyle(fontSize: 16),
               ),
-            const  SizedBox(height: 20),
+              const SizedBox(height: 10),
+              const Text(
+                'email: siu@gmail.com',
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Pn.no: 9996663331',
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Place: Kattapana',
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ProfileEdit(),
+                      builder: (context) => const RetProfileEdit(),
                     ),
                   );
                 },
