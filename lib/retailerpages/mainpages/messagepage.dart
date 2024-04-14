@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:traderapp/retailerpages/mainpages/connect.dart';
 
 class RetMessagePage extends StatefulWidget {
-  const RetMessagePage({Key? key}) : super(key: key);
+  const RetMessagePage({super.key});
 
   @override
   State<RetMessagePage> createState() => _MyAppState();
@@ -13,7 +13,7 @@ class _MyAppState extends State<RetMessagePage> {
   String yelan = 'Requests';
   String reff = 'Refresh';
   int count = 0;
-  TextStyle submitTextStyle = TextStyle(
+  TextStyle submitTextStyle = const TextStyle(
     color: Color.fromARGB(255, 97, 97, 97),
     fontSize: 16.0,
   );
@@ -43,9 +43,9 @@ class _MyAppState extends State<RetMessagePage> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 34, 58, 194),
+                      color: const Color.fromARGB(255, 34, 58, 194),
                       borderRadius: BorderRadius.circular(80),
                       border: Border.all(
                         color: _isPressed
@@ -57,14 +57,14 @@ class _MyAppState extends State<RetMessagePage> {
                           : [
                               BoxShadow(
                                 color: Colors.grey.shade500,
-                                offset: Offset(6, 6),
+                                offset: const Offset(6, 6),
                                 blurRadius: 15,
                                 spreadRadius: 1,
                               )
                             ]),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 255, 0, 0),
+                      foregroundColor: const Color.fromARGB(255, 255, 0, 0),
                       padding: const EdgeInsets.all(50),
                     ),
                     onPressed: () {},
@@ -75,7 +75,7 @@ class _MyAppState extends State<RetMessagePage> {
                           size: 40,
                         ),
                         const SizedBox(width: 15),
-                        Text(yelan, style: TextStyle(fontSize: 25)),
+                        Text(yelan, style: const TextStyle(fontSize: 25)),
                       ],
                     ),
                   ),
@@ -93,9 +93,9 @@ class _MyAppState extends State<RetMessagePage> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 34, 58, 194),
+                      color: const Color.fromARGB(255, 34, 58, 194),
                       borderRadius: BorderRadius.circular(80),
                       border: Border.all(
                         color: _isPressed
@@ -107,25 +107,82 @@ class _MyAppState extends State<RetMessagePage> {
                           : [
                               BoxShadow(
                                 color: Colors.grey.shade500,
-                                offset: Offset(6, 6),
+                                offset: const Offset(6, 6),
                                 blurRadius: 15,
                                 spreadRadius: 1,
                               )
                             ]),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 255, 0, 0),
+                      foregroundColor: const Color.fromARGB(255, 255, 0, 0),
                       padding: const EdgeInsets.all(50),
                     ),
                     onPressed: () {},
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.message,
                           size: 40,
                         ),
-                        const SizedBox(width: 15),
+                        SizedBox(width: 15),
                         Text('Messages', style: TextStyle(fontSize: 25)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (_isPressed == false) {
+                      _isPressed = true;
+                    } else {
+                      _isPressed = false;
+                    }
+                  });
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 34, 58, 194),
+                      borderRadius: BorderRadius.circular(80),
+                      border: Border.all(
+                        color: _isPressed
+                            ? Colors.grey.shade200
+                            : Colors.grey.shade300,
+                      ),
+                      boxShadow: _isPressed
+                          ? []
+                          : [
+                              BoxShadow(
+                                color: Colors.grey.shade500,
+                                offset: const Offset(6, 6),
+                                blurRadius: 15,
+                                spreadRadius: 1,
+                              )
+                            ]),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color.fromARGB(255, 255, 0, 0),
+                      padding: const EdgeInsets.all(50),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Rconnect(),
+                        ),
+                      );
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.link,
+                          size: 40,
+                        ),
+                        SizedBox(width: 15),
+                        Text('Connect', style: TextStyle(fontSize: 25)),
                       ],
                     ),
                   ),
@@ -140,8 +197,8 @@ class _MyAppState extends State<RetMessagePage> {
                 selectedTextColor: const Color.fromARGB(255, 148, 3, 3),
                 transitionType: TransitionType.LEFT_TO_RIGHT,
                 textStyle: submitTextStyle,
-                backgroundColor: Color.fromARGB(69, 134, 134, 134),
-                borderColor: Color.fromARGB(122, 141, 25, 25),
+                backgroundColor: const Color.fromARGB(69, 134, 134, 134),
+                borderColor: const Color.fromARGB(122, 141, 25, 25),
                 borderRadius: 50,
                 borderWidth: 2,
                 onPress: () {

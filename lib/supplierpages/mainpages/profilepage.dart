@@ -1,9 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:traderapp/components/bottomitems.dart';
-import 'package:traderapp/models/user.dart';
 import 'package:traderapp/retailerpages/mainpages/profileedit.dart';
-import 'package:traderapp/supplierpages/mainpages/profileedit.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -16,32 +12,46 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(
                     'https://upload.wikimedia.org/wikipedia/commons/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg'),
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'ronaldo',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'ID: 123456',
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileEdit(),
+                      builder: (context) => const RetProfileEdit(),
                     ),
                   );
                 },
-                child: Text('Edit Profile'),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.edit_rounded,
+                        size: 30,
+                      ),
+                      SizedBox(width: 5),
+                      Text('Edit Profile', style: TextStyle(fontSize: 23)),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
