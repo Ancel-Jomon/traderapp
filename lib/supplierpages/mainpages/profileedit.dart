@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 
-class RetProfileEdit extends StatefulWidget {
-  const RetProfileEdit({Key? key}) : super(key: key);
+class ProfileEdit extends StatefulWidget {
+  const ProfileEdit({super.key});
 
   @override
-  State<RetProfileEdit> createState() => _RetProfileEditState();
+  State<ProfileEdit> createState() => _ProfileEditState();
 }
 
-class _RetProfileEditState extends State<RetProfileEdit> {
+class _ProfileEditState extends State<ProfileEdit> {
   final _formKey = GlobalKey<FormState>();
   String phoneNumber = '';
   String address = '';
