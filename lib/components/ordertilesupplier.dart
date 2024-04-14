@@ -53,7 +53,7 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
               Text('\$${data?['total'] ?? 0}')
             ],
           ),
-          PerOrderItems(snapshot: widget.snapshot),
+          PerOrderItems(snapshot: widget.snapshot,value: widget.options,),
           showoptions()
           
         ],

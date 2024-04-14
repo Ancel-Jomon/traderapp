@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:traderapp/api/pdf_api.dart';
+import 'package:traderapp/api/pdf_api_generate.dart';
 import 'package:traderapp/components/button.dart';
+import 'package:traderapp/components/mytextfeild.dart';
 import 'package:traderapp/retailerpages/secondarypages/deleteorder.dart';
 import 'package:traderapp/retailerpages/secondarypages/updateorders.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
@@ -8,16 +13,15 @@ import 'package:traderapp/retailerpages/others/loadorderitems.dart';
 
 class OrderTileRetailer extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
-  final bool options;
-  const OrderTileRetailer({super.key, required this.snapshot,required this.options});
+  final bool options;//show generate bill or orther options
+  const OrderTileRetailer(
+      {super.key, required this.snapshot, required this.options});
 
   @override
   State<OrderTileRetailer> createState() => _OrderTileRetailerState();
 }
 
 class _OrderTileRetailerState extends State<OrderTileRetailer> {
- 
-
   Future<DocumentSnapshot<Map<String, dynamic>>> supplierdetail(
       DocumentSnapshot<Map<String, dynamic>?> documentSnapshot) async {
     final DocumentSnapshot<Map<String, dynamic>> docsnap =
@@ -40,8 +44,9 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
                 future: supplierdetail(widget.snapshot),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                   DocumentSnapshot<Map<String, dynamic>>? snap = snapshot.data!;
-                     
+                    DocumentSnapshot<Map<String, dynamic>>? snap =
+                        snapshot.data!;
+
                     return Text(
                       'ORDER TO:${snap['name']}',
                       style: const TextStyle(fontSize: 20),
@@ -56,41 +61,43 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
               Text('\$${data?['total'] ?? 0}')
             ],
           ),
-          PerOrderItems(snapshot: widget.snapshot),
+          PerOrderItems(snapshot: widget.snapshot,value: widget.options,),
           showoptions()
         ],
       ),
     );
   }
-  Widget showoptions(){
-    if(widget.options){
-     return Padding(
-            padding: const EdgeInsetsDirectional.only(top: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                MyButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UpdateOrders(
-                              snapshot: widget.snapshot,
-                            ),
-                          ));
-                    },
-                    msg: "update"),
-                const SizedBox(
-                  width: 10,
-                ),
-                MyButton(onPressed: () {
-                  DeleteOrder().deleteorder(context,widget.snapshot);
-                }, msg: "delete")
-              ],
+
+  Widget showoptions() {
+    if (widget.options) {
+      return Padding(
+        padding: const EdgeInsetsDirectional.only(top: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MyButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UpdateOrders(
+                          snapshot: widget.snapshot,
+                        ),
+                      ));
+                },
+                msg: "update"),
+            const SizedBox(
+              width: 10,
             ),
-          );
-    }
-    else{
+            MyButton(
+                onPressed: () {
+                  DeleteOrder().deleteorder(context, widget.snapshot);
+                },
+                msg: "delete")
+          ],
+        ),
+      );
+    } else {
       return const SizedBox.shrink();
     }
   }

@@ -1,13 +1,21 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:traderapp/api/pdf_api_generate.dart';
+import 'package:traderapp/components/button.dart';
+import 'package:traderapp/models/invoiceitem.dart';
 import 'package:traderapp/services/firestoreorderoptions.dart';
 
 class PerOrderItems extends StatelessWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
-  const PerOrderItems({super.key, required this.snapshot});
+  final bool value;
+   PerOrderItems({super.key, required this.snapshot,required this.value});
+
+   final List<InvoiceItem> invoiceitems = [];
 
   Future<DocumentSnapshot<Map<String, dynamic>>> future(String id) {
     return FirestoreOrder().orderitemdetail(id);
@@ -36,14 +44,17 @@ class PerOrderItems extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   Map<String, dynamic>? snap = snapshot.data!.data();
-
+                    invoiceitems.add(InvoiceItem(
+                      name: snap!['name'],
+                      price: snap['price'],
+                      quantity: snap['quantity']));
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         flex: 2,
                         child: Text(
-                          '${snap!['name']}',
+                          '${snap['name']}',
                         ),
                       ),
                       Expanded(
@@ -64,8 +75,41 @@ class PerOrderItems extends StatelessWidget {
               },
             );
           },
-        ),
+        ),showoption(context, value)
       ],
     );
+  }
+  Widget showoption(BuildContext context, bool value) {
+    if (!value) {
+      return MyButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('generate bill'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                        'files will downloaded to: /storage/emulated/0/Download'),
+                    MyButton(
+                        onPressed: () async {
+                           Navigator.pop(context);
+                          await PdfApiGenerate.generate(invoiceitems).then((value) {
+                            log(value.toString());
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                          });
+                        },
+                        msg: 'generate')
+                  ],
+                ),
+              ),
+            );
+          },
+          msg: 'generate bill');
+    }
+    else {
+      return const SizedBox.shrink();
+    }
   }
 }
