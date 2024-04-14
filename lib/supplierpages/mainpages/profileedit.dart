@@ -19,7 +19,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,7 +28,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 onChanged: (value) {
                   setState(() {
                     phoneNumber = value;
@@ -36,7 +36,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Address'),
+                decoration: const InputDecoration(labelText: 'Address'),
                 onChanged: (value) {
                   setState(() {
                     address = value;
@@ -44,7 +44,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Place'),
+                decoration: const InputDecoration(labelText: 'Place'),
                 onChanged: (value) {
                   setState(() {
                     place = value;
@@ -52,19 +52,19 @@ class _ProfileEditState extends State<ProfileEdit> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 onChanged: (value) {
                   setState(() {
                     email = value;
                   });
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TweenAnimationBuilder(
                 tween: ColorTween(
                     begin: Colors.blue,
                     end: _isPressed ? Colors.green : Colors.blue),
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 builder: (BuildContext context, Color? color, Widget? child) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -74,9 +74,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                     ),
-                    child: Text('Save Changes', style: TextStyle(fontSize: 20)),
+                    child: const Text('Save Changes', style: TextStyle(fontSize: 20)),
                     onPressed: () {
                       setState(() {
                         _isPressed = !_isPressed;
