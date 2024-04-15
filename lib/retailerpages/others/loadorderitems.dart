@@ -87,7 +87,8 @@ class PerOrderItems extends StatelessWidget {
     );
   }
 
-  Widget showoption(BuildContext context, bool value) {
+   Widget showoption(BuildContext context, bool value)  {
+    
     if (!value) {
       return MyButton(
           onPressed: () {
@@ -102,23 +103,25 @@ class PerOrderItems extends StatelessWidget {
                         'files will downloaded to: /storage/emulated/0/Download'),
                     MyButton(
                         onPressed: () async {
-                          Navigator.pop(context);
-                          await PdfApiGenerate.generate(invoiceitems).then((value) {
-                            log(value.toString());
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(value.toString())));
-                          });
-
-                          //PdfApi.openFile(file);
+                           Navigator.pop(context,true);
+                         
                         },
                         msg: 'generate')
                   ],
                 ),
               ),
-            );
+            ).then((value) async{
+              if (value ?? false) {
+                  await PdfApiGenerate.generate(invoiceitems).then((value) => 
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString()))));
+                
+              } 
+            });
+             
           },
           msg: 'generate bill');
-    } else {
+    }
+    else {
       return const SizedBox.shrink();
     }
   }

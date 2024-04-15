@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,9 +23,10 @@ class FirestoreConnection {
     final supplierid = supplierloc.substring(13);
 
     final doc = await userref.doc(supplierid).get();
-      
+
     return doc;
   }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> collectRetailerInfo(
       DocumentSnapshot<Map<String, dynamic>?> snapshot) async {
     final data = snapshot.data();
@@ -37,5 +37,26 @@ class FirestoreConnection {
     final doc = await userref.doc(retailerid).get();
 
     return doc;
+  }
+
+  //
+
+  Future<Map<String, dynamic>?> searchuser(String id, bool value) async {
+    final user = await userref.doc(id).get();
+    final data = user.data();
+
+    if (data != null) {
+      if (value && data['role'] == 'retailer') {
+        //if value is true and role is retailer for searches from supplier
+        return data;
+      } else if (!value && data['role'] == 'supplier') {
+        return data;
+      } else {
+        return null;
+      }
+    }
+    else {
+      return null;
+    }
   }
 }

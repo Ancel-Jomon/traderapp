@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -8,7 +9,7 @@ import 'package:traderapp/models/invoiceitem.dart';
 
 class PdfApiGenerate{
   
- static Future generate(List<InvoiceItem> items) async{
+ static Future<File> generate(List<InvoiceItem> items) async{
   final font = await PdfGoogleFonts.openSansLight();
   final name= DateTime.now().microsecondsSinceEpoch.toString();
   log(name);

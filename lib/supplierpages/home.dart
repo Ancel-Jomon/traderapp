@@ -26,9 +26,7 @@ class _SupHomeState extends State<SupHome> {
   final pages = [HomePage(), MessagePage(), OrderPage(), ProfilePage()];
 
   
-  void onPressed() {
-    Navigator.pushNamed(context, '/AddProduct');
-  }
+ 
 
   void pageNavigator(index) {
     setState(() {
@@ -65,9 +63,7 @@ class _SupHomeState extends State<SupHome> {
         }),
       ),
       body: pages[selectedIndex],
-      floatingActionButton: FloatingActionButton(
-          onPressed: onPressed,
-          child: const Icon(Icons.add)),
+      
     );
   }
 }
