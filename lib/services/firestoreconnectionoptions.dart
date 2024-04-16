@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -48,15 +50,53 @@ class FirestoreConnection {
     if (data != null) {
       if (value && data['role'] == 'retailer') {
         //if value is true and role is retailer for searches from supplier
+        //data['uid']=user.id;
         return data;
       } else if (!value && data['role'] == 'supplier') {
+        //data['uid']=user.id;
         return data;
       } else {
         return null;
       }
-    }
-    else {
+    } else {
       return null;
+    }
+  }
+
+  Future<bool?> connect(String id, bool value) async {
+
+    if (value) {//if value = true then connect requst from supplier  
+      String retailerid='/userdetails/$id';
+      String supplierid='/userdetails/${user!.uid}';
+     return await conref
+          .where('retailer_id', isEqualTo: retailerid)
+          .get()
+          .then((value) async {
+        if (value.docs.isNotEmpty ) {
+          log('connected');
+          return true;
+        } else {
+          Map<String,String> data={'retailer_id':retailerid,'supplier_id':supplierid};
+          await conref.doc().set(data);
+          return false;
+        }
+      });
+      
+    } else {
+      String supplierid='/userdetails/$id';
+      String retailerid='/userdetails/${user!.uid}';
+    return  await conref
+          .where('supplier_id', isEqualTo: supplierid)
+          .get()
+          .then((value) async {
+        if (value.docs.isNotEmpty) {
+          return true;
+        } else {
+          Map<String,String> data={'supplier_id':supplierid,'retailer_id':retailerid};
+          await conref.doc().set(data);
+          return false;
+        }
+      });
     }
   }
 }
