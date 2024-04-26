@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
 import 'package:traderapp/supplierpages/others/loadproducts.dart';
+import 'package:traderapp/supplierpages/tabs/insights.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,10 +52,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Expanded(
                       child: Container(
                     child: TabBarView(controller: controller, children: [
+                      
                       Container(child: ListProducts().allProducts(productStream)),
-                      Container(
-                        child: const Center(child: Text('INSIGHTS')),
-                      )
+                       const Insights(),
+                     
                     ]),
                   ))
                 ],

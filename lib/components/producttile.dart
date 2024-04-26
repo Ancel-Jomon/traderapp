@@ -9,26 +9,32 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ImageProvider<Object>?  image= product.url != null ? NetworkImage(product.url!) :const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>?;
-    return Column(
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage:image
-
-            ),
-            Row(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundImage:image
               
-              children: productPopupMenuList(context, product),
-            ),
-          ],
-        ),
-        ListTile(
-          title: Text(product.productName),
-          trailing: Text(product.productPrice.toString()),
-        ),
-      ],
+              ),
+              const SizedBox(width: 10,),
+              Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Product Name :${product.productName}'),
+                  Text('Product price:${product.productPrice.toString()}')
+                ],
+              ),
+            ],
+          ),
+          Row(
+            
+            children: productPopupMenuList(context, product),
+          ),
+        ],
+      ),
     );
   }
 }
