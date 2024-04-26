@@ -8,6 +8,8 @@ class FirestoreConnection {
 
   final conref = FirebaseFirestore.instance.collection('connections');
   final userref = FirebaseFirestore.instance.collection('userdetails');
+  //late final CollectionReference<Map<String, dynamic>> reqref;
+  
 
   Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierList() {
     final data = conref
@@ -64,20 +66,21 @@ class FirestoreConnection {
   }
 
   Future<bool?> connect(String id, bool value) async {
+      final     reqref = FirebaseFirestore.instance.collection('userdetails').doc(id).collection('requests');
 
     if (value) {//if value = true then connect requst from supplier  
       String retailerid='/userdetails/$id';
       String supplierid='/userdetails/${user!.uid}';
      return await conref
-          .where('retailer_id', isEqualTo: retailerid)
+          .where('retailer_id', isEqualTo: retailerid).where('supplier_id',isEqualTo: supplierid)
           .get()
           .then((value) async {
         if (value.docs.isNotEmpty ) {
           log('connected');
           return true;
         } else {
-          Map<String,String> data={'retailer_id':retailerid,'supplier_id':supplierid};
-          await conref.doc().set(data);
+          Map<String,dynamic> data={'retailer_id':retailerid,'supplier_id':supplierid,'fromsupplier':true};
+          await reqref.doc().set(data);
           return false;
         }
       });
@@ -92,8 +95,8 @@ class FirestoreConnection {
         if (value.docs.isNotEmpty) {
           return true;
         } else {
-          Map<String,String> data={'supplier_id':supplierid,'retailer_id':retailerid};
-          await conref.doc().set(data);
+          Map<String,dynamic> data={'supplier_id':supplierid,'retailer_id':retailerid,'fromsupplier':false};
+          await reqref.doc().set(data);
           return false;
         }
       });

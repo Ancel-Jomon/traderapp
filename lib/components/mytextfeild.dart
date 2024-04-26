@@ -11,13 +11,13 @@ class MyTextFeild extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: TextField(controller: textController,
+      child: TextFormField(controller: textController,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Theme.of(context).colorScheme.primary)),
-            hintText: hinttext,
-            hintStyle: TextStyle(color:Theme.of(context).colorScheme.inversePrimary ),
+            labelText: hinttext,
+            labelStyle: TextStyle(color:Theme.of(context).colorScheme.inversePrimary ),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                     color: Theme.of(context).colorScheme.background)),

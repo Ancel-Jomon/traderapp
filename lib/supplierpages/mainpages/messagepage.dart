@@ -114,7 +114,7 @@ class _ShowUserState extends State<ShowUser> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                      const SnackBar(
                                           content: Text(
-                                              'you are now connected')));
+                                              'request send')));
                                 }
                                 else{
                                   ScaffoldMessenger.of(context).showSnackBar(
