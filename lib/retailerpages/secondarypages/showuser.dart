@@ -38,7 +38,7 @@ class _ShowUserState extends State<ShowUser> {
       ),
       (show == true
           ? showuser(uidcontroller.text, false)
-          : const SizedBox.shrink())
+          : const Image(height: 100,width: 100,image: AssetImage('lib/assets/searching.png')))
     ],
           ),
         );

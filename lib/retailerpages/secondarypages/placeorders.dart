@@ -23,7 +23,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
   }
 
   onPressed(String id,int total) {
-    final Map<Product,int> map=Provider.of<OrderDraft>(context, listen: false).viewOderItems();
+   if(total !=0){ final Map<Product,int> map=Provider.of<OrderDraft>(context, listen: false).viewOderItems();
     FirestoreOrder().placeOrderitems(map, id,total);
     Provider.of<OrderDraft>(context, listen: false).emptyOrderMap();
 
@@ -34,7 +34,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
         builder: (context) => const AlertDialog(
               title: Text('Order Placed!'),
               backgroundColor: Colors.white,
-            ));
+            ));}
   }
 
   @override

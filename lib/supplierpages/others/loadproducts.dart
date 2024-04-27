@@ -16,13 +16,22 @@ class ListProducts {
             case ConnectionState.done:
               return const Text('safe');
             case ConnectionState.active:
-              return ListView.builder(
+              if(snapshot.data!.docs.isNotEmpty){
+                return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot<Map<String,dynamic>?> documentSnapshot=snapshot.data!.docs[index] as DocumentSnapshot<Map<String,dynamic>?>;
                   return Card(child: ProductTile(product: Product.fromFirestore(documentSnapshot)),);
                 },
               );
+              }else{
+                return const Column(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image(height: 150,width: 150,image: AssetImage('lib/assets/box.png')),
+                    Text('add new product!')
+                  ],
+                );
+              }
 
            
             default:

@@ -12,7 +12,12 @@ class ListOrders {
         switch (snapshot.connectionState) {
           case ConnectionState.active:
             if( snapshot.data!.docs.isEmpty){
-              return const Center(child:  Text('you have no orders'));
+              return const Center(child:  Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(height: 150,width: 150,image: AssetImage('lib/assets/order-fulfillment.png')),
+                  Text('you have no orders'),
+                ],
+              ));
 
             }
             else{

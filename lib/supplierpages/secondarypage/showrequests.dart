@@ -26,7 +26,8 @@ class ShowRequests extends StatelessWidget {
                     switch (snapshot.connectionState) {
                       case ConnectionState.active:
                         log(snapshot.data!.docs.length.toString());
-                        return ListView.builder(
+                        if(snapshot.data!.docs.isNotEmpty){
+                          return ListView.builder(
                           shrinkWrap: true,
                           itemCount: snapshot.data!.docs.length,
                           scrollDirection: Axis.horizontal,
@@ -43,12 +44,15 @@ class ShowRequests extends StatelessWidget {
                                   snapshot: data,connectiondata: connectiondata,
                                 );
                                } else {
-                                 return Text('noo data');
+                                 return const CircularProgressIndicator();
                                }
                               },
                             );
                           },
                         );
+                        }else{
+                          return const Image(height: 100,width: 100,image: AssetImage('lib/assets/connected.png'));
+                        }
 
                       default:
                         return const Center(child: CircularProgressIndicator(),);

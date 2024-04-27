@@ -15,7 +15,12 @@ class ListOrders {
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
                 return const Center(
-                  child: Text("place a new order"),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(height: 150,width: 150,image: AssetImage('lib/assets/received.png')),
+                      Text('place a new order!')
+                    ],
+                  )
                 );
               }
               return ListView.builder(

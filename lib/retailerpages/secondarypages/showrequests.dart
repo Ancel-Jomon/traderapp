@@ -22,28 +22,40 @@ class ShowRequests extends StatelessWidget {
               child: StreamBuilder(
                 stream: FirestoreConnection().receiverequest(),
                 builder: (context, snapshot) {
-                  if(snapshot.hasData){
-                    log(snapshot.data!.docs.length.toString() );
-                    return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.docs.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final connectiondata=snapshot.data!.docs[index];
-                      return FutureBuilder(
-                        future: FirestoreConnection()
-                            .collectSupplierInfo(connectiondata),
-                        builder: (context, snapshot) {
-                          final data= snapshot.data;
-                          return RequestTile(snapshot: data,connectiondata: connectiondata,);
+                  if (snapshot.hasData) {
+                    log(snapshot.data!.docs.length.toString());
+                    if (snapshot.data!.docs.isNotEmpty) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.docs.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final connectiondata = snapshot.data!.docs[index];
+                          return FutureBuilder(
+                            future: FirestoreConnection()
+                                .collectSupplierInfo(connectiondata),
+                            builder: (context, snapshot) {
+                              final data = snapshot.data;
+                              if (snapshot.hasData) {
+                                return RequestTile(
+                                  snapshot: data,
+                                  connectiondata: connectiondata,
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          );
                         },
                       );
-                    },
-                  );
-                 
+                    } else {
+                      return const Image(
+                          height: 100,
+                          width: 100,
+                          image: AssetImage('lib/assets/connected.png'));
+                    }
                   }
-                   return Text('data');
-                  
+                  return const Text('data');
                 },
               ),
             ),
