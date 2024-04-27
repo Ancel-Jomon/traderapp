@@ -5,14 +5,17 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 import 'package:traderapp/api/pdf_api.dart';
+import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/invoiceitem.dart';
 
 class PdfApiGenerate {
   static Future<File> generate(
-      List<InvoiceItem> items, Map<String, dynamic> orderdata) async {
+      List<InvoiceItem> items, Map<String, dynamic> orderdatauser) async {
     final font = await PdfGoogleFonts.openSansLight();
     final name = DateTime.now().microsecondsSinceEpoch.toString();
-    log(orderdata.toString());
+    log(orderdatauser.toString());
+    log(getCurrentUser().name);
+
     final pdf = Document(theme: ThemeData.withFont(base: font));
     pdf.addPage(MultiPage(
       build: (Context context) {
