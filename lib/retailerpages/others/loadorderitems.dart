@@ -9,8 +9,9 @@ import 'package:traderapp/services/firestoreorderoptions.dart';
 class PerOrderItems extends StatelessWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
   final bool value;
-  PerOrderItems({super.key, required this.snapshot, required this.value});
+  PerOrderItems({super.key, required this.snapshot, required this.value,required this.orderdata});
   final List<InvoiceItem> invoiceitems = [];
+   final DocumentSnapshot<Map<String, dynamic>>? orderdata;
 
   Future<DocumentSnapshot<Map<String, dynamic>>> future(String id) {
     return FirestoreOrder().orderitemdetail(id);
@@ -109,7 +110,7 @@ class PerOrderItems extends StatelessWidget {
               ),
             ).then((value) async{
               if (value ?? false) {
-                  await PdfApiGenerate.generate(invoiceitems).then((value) => 
+                  await PdfApiGenerate.generate(invoiceitems,orderdata!.data()!).then((value) => 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString()))));
                 
               } 

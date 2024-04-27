@@ -9,14 +9,16 @@ import 'package:traderapp/supplierpages/others/loadorderitems.dart';
 class OrderTileSupplier extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>?> snapshot;
   final bool options;
-  const OrderTileSupplier({super.key, required this.snapshot,required this.options});
+  const OrderTileSupplier(
+      {super.key, required this.snapshot, required this.options});
 
   @override
   State<OrderTileSupplier> createState() => _OrderTileSupplierState();
 }
 
 class _OrderTileSupplierState extends State<OrderTileSupplier> {
-   bool value=false;
+  bool value = false;
+  late DocumentSnapshot<Map<String, dynamic>?> orderdata;
 
   Future<DocumentSnapshot<Map<String, dynamic>>> retailerdetail(
       DocumentSnapshot<Map<String, dynamic>?> documentSnapshot) async {
@@ -33,49 +35,62 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
       padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FutureBuilder(
-                future: retailerdetail(widget.snapshot),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final DocumentSnapshot<Map<String, dynamic>?> snap =
-                        snapshot.data!;
-                    return Text('ORDER FROM:${snap['name']}',style: const TextStyle(fontSize: 20),);
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-              Text('\$${data?['total'] ?? 0}')
-            ],
+          FutureBuilder(
+            future: retailerdetail(widget.snapshot),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                orderdata = snapshot.data!;
+                return Column(
+                  children: [
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'ORDER FROM:${orderdata['name']}',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text('\$${data?['total'] ?? 0}'),
+                      ],
+                    ),
+                    PerOrderItems(
+                      snapshot: widget.snapshot,
+                      value: widget.options,
+                      orderdata: orderdata,
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
-          PerOrderItems(snapshot: widget.snapshot,value: widget.options,),
-          showoptions()
           
+          showoptions()
         ],
       ),
     );
   }
-  Widget showoptions(){
-    if(widget.options){
-     return Row(mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Text('delivered'),
-              Switch(value: value, onChanged:(value) {
-            setState(() {
-             this.value = value;
-            });
-            log('here');
-            FireSupOrder().deliverOrder(widget.snapshot);
-          },)
-            ],
-          );
-    }
-    else{
+
+  Widget showoptions() {
+    if (widget.options) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const Text('delivered'),
+          Switch(
+            value: value,
+            onChanged: (value) {
+              setState(() {
+                this.value = value;
+              });
+              log('here');
+              FireSupOrder().deliverOrder(widget.snapshot);
+            },
+          )
+        ],
+      );
+    } else {
       return const SizedBox.shrink();
     }
   }
