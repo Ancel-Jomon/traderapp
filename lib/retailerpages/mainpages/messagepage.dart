@@ -22,12 +22,17 @@ class _RetMessagePageState extends State<RetMessagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Expanded(child: ShowRequests()),
-        Divider(),
-        Expanded(child: ShowUser())
-      ],
+    //return Text('hello');
+    return  Scaffold(backgroundColor: Theme.of(context).colorScheme.tertiary,//resizeToAvoidBottomInset:true,
+      body: SingleChildScrollView(
+        child: Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height/2.5,child: const ShowRequests()),
+            const Divider(),
+            SizedBox(height: MediaQuery.of(context).size.height/2.5,child: const ShowUser())
+          ],
+        ),
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class _RetHomeState extends State<RetHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(//resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
         title: const Text(

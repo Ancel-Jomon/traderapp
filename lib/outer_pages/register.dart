@@ -33,63 +33,63 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.favorite,
-            size: 50,
-            color: Theme.of(context).colorScheme.background,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            'CREATE AN ACCOUNT !',
-            style: TextStyle(color: Theme.of(context).colorScheme.background),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          MyTextFeild(hinttext: 'email', textController: _email),
-          const SizedBox(
-            height: 5,
-          ),
-          MyTextFeild(hinttext: 'password', textController: _pword),
-          const SizedBox(
-            height: 5,
-          ),
-          MyTextFeild(hinttext: 'confirm password', textController: _cpword),
-          const SizedBox(
-            height: 20,
-          ),
-          MyButton(
-            msg: 'register',
-            onPressed: () => register(context),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'already a member?',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+               const Image(width: 100,height: 100,image: AssetImage('lib/assets/purchasing.png')),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                'CREATE AN ACCOUNT !',
+                style: TextStyle(color: Theme.of(context).colorScheme.background),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              MyTextFeild(hinttext: 'email', textController: _email),
+              const SizedBox(
+                height: 5,
+              ),
+              MyTextFeild(hinttext: 'password', textController: _pword),
+              const SizedBox(
+                height: 5,
+              ),
+              MyTextFeild(hinttext: 'confirm password', textController: _cpword),
+              const SizedBox(
+                height: 20,
+              ),
+              MyButton(
+                msg: 'register',
+                onPressed: () => register(context),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'already a member?',
+                      style:
+                          TextStyle(color: Theme.of(context).colorScheme.primary),
+                    ),
+                    GestureDetector(
+                      onTap: changepage,
+                      child: Text(
+                        'Login Now',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
-                GestureDetector(
-                  onTap: changepage,
-                  child: Text(
-                    'Login Now',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

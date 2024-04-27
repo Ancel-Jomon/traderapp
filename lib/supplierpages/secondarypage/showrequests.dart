@@ -12,7 +12,7 @@ class ShowRequests extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
+      child: Column(mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text('your requests'),
@@ -31,15 +31,16 @@ class ShowRequests extends StatelessWidget {
                           itemCount: snapshot.data!.docs.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
+                            final connectiondata=snapshot.data!.docs[index];
                             return FutureBuilder(
                               future: FirestoreConnection().collectRetailerInfo(
-                                  snapshot.data!.docs[index]),
+                                 connectiondata ),
                               builder: (context, snapshot) {
                                 final data = snapshot.data;
                                if (snapshot.hasData) {
                                   log(data!.id);
                                 return RequestTile(
-                                  snapshot: data,
+                                  snapshot: data,connectiondata: connectiondata,
                                 );
                                } else {
                                  return Text('noo data');

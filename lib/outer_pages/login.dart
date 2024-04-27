@@ -1,6 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
@@ -22,7 +21,7 @@ class LoginPage extends StatelessWidget {
 
   final TextEditingController _pword = TextEditingController();
 
-   login(BuildContext context) async {
+  login(BuildContext context) async {
     final fireBaseAuthentication = FireBaseAuthentication();
 
     await fireBaseAuthentication
@@ -37,7 +36,6 @@ class LoginPage extends StatelessWidget {
     if (user != null) {
       await FirestoreReadUser().readUserInfo().then((myuser) {
         if (myuser is Supplier) {
-          
           Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (_) => false);
         } else if (myuser is Retailer) {
           Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (_) => false);
@@ -49,61 +47,68 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.favorite,
-            size: 50,
-            color: Theme.of(context).colorScheme.background,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            'WELCOME BACK !',
-            style: TextStyle(color: Theme.of(context).colorScheme.background),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          MyTextFeild(hinttext: 'email', textController: _email),
-          const SizedBox(
-            height: 3,
-          ),
-          MyTextFeild(hinttext: 'password', textController: _pword),
-          const SizedBox(
-            height: 20,
-          ),
-          MyButton(
-            msg: 'login',
-            onPressed: () => login(context),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+      body: 
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'don\'t have an account ?',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                const Image(
+                    width: 100,
+                    height: 100,
+                    image: AssetImage('lib/assets/sell.png')),
+                const SizedBox(
+                  height: 5,
                 ),
-                GestureDetector(
-                  onTap: changepage,
-                  child: Text(
-                    'Register Now',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold),
+                Text(
+                  'WELCOME BACK !',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.background),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MyTextFeild(hinttext: 'email', textController: _email),
+                const SizedBox(
+                  height: 3,
+                ),
+                MyTextFeild(hinttext: 'password', textController: _pword),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyButton(
+                  msg: 'login',
+                  onPressed: () => login(context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'don\'t have an account ?',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      GestureDetector(
+                        onTap: changepage,
+                        child: Text(
+                          'Register Now',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      
     );
   }
 }

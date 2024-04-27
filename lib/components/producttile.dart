@@ -23,8 +23,8 @@ class ProductTile extends StatelessWidget {
               const SizedBox(width: 10,),
               Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Product Name :${product.productName}'),
-                  Text('Product price:${product.productPrice.toString()}')
+                  Text(product.productName,style: TextStyle(),),
+                  Text('price:${product.productPrice.toString()}')
                 ],
               ),
             ],

@@ -29,12 +29,13 @@ class ShowRequests extends StatelessWidget {
                     itemCount: snapshot.data!.docs.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
+                      final connectiondata=snapshot.data!.docs[index];
                       return FutureBuilder(
                         future: FirestoreConnection()
-                            .collectSupplierInfo(snapshot.data!.docs[index]),
+                            .collectSupplierInfo(connectiondata),
                         builder: (context, snapshot) {
                           final data= snapshot.data;
-                          return RequestTile(snapshot: data,);
+                          return RequestTile(snapshot: data,connectiondata: connectiondata,);
                         },
                       );
                     },

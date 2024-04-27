@@ -73,6 +73,25 @@ class FirestoreConnection {
     return reqref.snapshots();
   }
 
+  void requestoptions(bool value, Map<String, dynamic> data) async {
+    final reqref = FirebaseFirestore.instance
+        .collection('userdetails')
+        .doc(user!.uid)
+        .collection('requests');
+    if (value) {
+      data.remove('fromsupplier');
+      log(data.toString());
+      await conref.doc().set(data);
+    }
+    reqref
+        .where('retailer_id', isEqualTo: data['retailer_id'])
+        .where('supplier_id', isEqualTo: data['supplier_id']).get().then((value) {
+          for (var element in value.docs) { 
+            element.reference.delete();
+          }
+        });
+  }
+
   Future<bool?> sendrequest(String id, bool value) async {
     final reqref = FirebaseFirestore.instance
         .collection('userdetails')

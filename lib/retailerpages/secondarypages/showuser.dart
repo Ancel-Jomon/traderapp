@@ -45,6 +45,7 @@ class _ShowUserState extends State<ShowUser> {
   }
 
   Widget showuser(String id, bool value) {
+    log(id);
     return FutureBuilder(
       future: FirestoreConnection().searchuser(id, value),
       builder: (context, snapshot) {

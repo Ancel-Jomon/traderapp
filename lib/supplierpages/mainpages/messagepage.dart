@@ -1,10 +1,8 @@
-import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:traderapp/components/button.dart';
-import 'package:traderapp/components/mytextfeild.dart';
-import 'package:traderapp/services/firestoreconnectionoptions.dart';
+//import 'package:traderapp/supplierpages/secondarypages/showuser.dart';
 import 'package:traderapp/supplierpages/secondarypage/showrequests.dart';
 import 'package:traderapp/supplierpages/secondarypage/showuser.dart';
 
@@ -20,12 +18,16 @@ class _MessagePageState extends State<MessagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Expanded(child: ShowRequests()),
-        Divider(),
-        Expanded(child: ShowUser())
-      ],
+    return  Scaffold(backgroundColor: Theme.of(context).colorScheme.tertiary,//resizeToAvoidBottomInset:true,
+      body: SingleChildScrollView(
+        child: Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height/2.5,child: const ShowRequests()),
+            const Divider(),
+            SizedBox(height: MediaQuery.of(context).size.height/2.5,child: const ShowUser())
+          ],
+        ),
+      ),
     );
   }
 }

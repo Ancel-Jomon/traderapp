@@ -93,18 +93,23 @@ class FireStorage {
     return await ref.delete();
   }
 
-  Future<String> updateimage(XFile? img, String? url) async {
-    if (url != null && url != '') {
+  Future<String?> updateimage(XFile? img, String? url) async {
+    if (img != null) {
+      if (url != null && url != '') {
       final ref = FirebaseStorage.instance.refFromURL(url);
       log(ref.fullPath);
       try {
-        await ref.putFile(File(img!.path));
+        await ref.putFile(File(img.path));
       } on Exception catch (e) {
         log(e.toString());
       }
       return await ref.getDownloadURL();
     }else{
-     return await uploadimage(img!);
+     return await uploadimage(img);
+    }
+      
+    } else {
+      return null;
     }
 
     

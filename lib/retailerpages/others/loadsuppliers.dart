@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/suppliertile.dart';
@@ -32,7 +34,7 @@ class ListSuppliers {
                   DocumentSnapshot<Map<String, dynamic>?> documentSnapshot =
                       snapshot.data!.docs[index]
                           as DocumentSnapshot<Map<String, dynamic>?>;
-
+                      
                   return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                     future: suppliertiledetail(documentSnapshot),
                     builder: (context, snapshot) {
@@ -41,6 +43,8 @@ class ListSuppliers {
                             snapshot.data!;
                             
                         final data =snap.id;
+                        
+                       
                         return Card(
                             child: InkWell(
                                 onTap: () {
