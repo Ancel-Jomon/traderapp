@@ -2,9 +2,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:traderapp/api/pdf_api_generate.dart';
 import 'package:traderapp/components/button.dart';
+import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/invoiceitem.dart';
+import 'package:traderapp/models/user.dart';
 import 'package:traderapp/services/firestoreorderoptions.dart';
 
 class PerOrderItems extends StatelessWidget {
@@ -102,7 +105,8 @@ class PerOrderItems extends StatelessWidget {
               ),
             ).then((value) async{
               if (value ?? false) {
-                  await PdfApiGenerate.generate(invoiceitems,orderdata.data()!).then((value) => 
+                final MyUser user=Provider.of<CurrentUserDraft>(context,listen: false).getCurrentUser();
+                  await PdfApiGenerate.generate(invoiceitems,orderdata.data()!,user).then((value) => 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString()))));
                 
               } 

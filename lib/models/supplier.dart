@@ -4,6 +4,7 @@ import 'package:traderapp/models/user.dart';
 class Supplier extends MyUser {
   String supplierName;
   String scompany, sphno, saddress;
+  String? simgurl;
 
   String role = "supplier";
 
@@ -11,12 +12,14 @@ class Supplier extends MyUser {
       {required this.supplierName,
       required this.scompany,
       required this.sphno,
-      required this.saddress})
+      required this.saddress,this.simgurl})
       : super(
             name: supplierName,
             company: scompany,
             phno: sphno,
-            address: saddress);
+            address: saddress,
+            imgurl: simgurl
+            );
 
   factory Supplier.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>?> snapshot,
@@ -26,6 +29,7 @@ class Supplier extends MyUser {
         supplierName: data?['name'],
         saddress: data?['address'],
         scompany: data?['company'],
-        sphno: data?['phno']);
+        sphno: data?['phno'],
+        simgurl: data?['imgurl']);
   }
 }

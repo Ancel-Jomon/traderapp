@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:traderapp/firebase_options.dart';
 
 import 'package:traderapp/loginorregister.dart';
+import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/orderdraft.dart';
 
 import 'package:traderapp/outer_pages/details.dart';
@@ -25,8 +26,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => OrderDraft(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OrderDraft()),
+        ChangeNotifierProvider(
+          create: (context) => CurrentUserDraft(),
+        )
+      ],
       child: MaterialApp(
         title: '',
         theme: Themes().lightmode,

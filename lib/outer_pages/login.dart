@@ -2,8 +2,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/models/current_userdetails.dart';
 //import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/supplier.dart';
@@ -34,7 +36,9 @@ class LoginPage extends StatelessWidget {
   navigate(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      await FirestoreReadUser().readUserInfo().then((myuser) {
+      await FirestoreReadUser().readUserInfo(context).then((myuser) {
+        Provider.of<CurrentUserDraft>(context,listen: false).loadCurrentUser(myuser);
+
         if (myuser is Supplier) {
           Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (_) => false);
         } else if (myuser is Retailer) {
