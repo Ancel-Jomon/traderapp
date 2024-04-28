@@ -23,9 +23,12 @@ class LoadProducts {
                       .docs[index] as DocumentSnapshot<Map<String, dynamic>?>;
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 15),
-                    child: Card(
-                        child: OrderProducttile(
-                            product: Product.fromFirestore(snap))),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                      child: Card(
+                          child: OrderProducttile(
+                              product: Product.fromFirestore(snap))),
+                    ),
                   );
                 },
               ),

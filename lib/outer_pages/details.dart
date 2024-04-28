@@ -54,7 +54,7 @@ class _DetailsPageState extends State<DetailsPage> {
           sphno: phone.text,
           saddress: address.text);
       addUser.addUserDetail(supplier, uid);
-      Provider.of<CurrentUserDraft>(context).loadCurrentUser(supplier);
+      Provider.of<CurrentUserDraft>(context,listen: false).loadCurrentUser(supplier);
 
       Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (route) => false);
     } else if (selectedOption == 'retailer') {
@@ -64,7 +64,7 @@ class _DetailsPageState extends State<DetailsPage> {
           rphno: phone.text,
           raddress: address.text);
       addUser.addUserDetail(retailer, uid);
-       Provider.of<CurrentUserDraft>(context).loadCurrentUser(retailer);
+       Provider.of<CurrentUserDraft>(context,listen: false).loadCurrentUser(retailer);
 
       Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (route) => false);
     }
@@ -99,6 +99,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   selectedOption = value;
                 });
               },
+              
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -108,6 +109,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           color: Theme.of(context).colorScheme.background))),
             ),
           ),
+          const SizedBox(height: 10,),
           MyTextFeild(
             hinttext: 'name',
             textController: name,

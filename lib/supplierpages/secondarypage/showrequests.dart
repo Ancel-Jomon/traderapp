@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:traderapp/components/requesttile.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 
@@ -44,7 +43,7 @@ class ShowRequests extends StatelessWidget {
                                   snapshot: data,connectiondata: connectiondata,
                                 );
                                } else {
-                                 return const CircularProgressIndicator();
+                                 return const Center(child: CircularProgressIndicator());
                                }
                               },
                             );

@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
-import 'package:traderapp/models/supplier.dart';
 import 'package:traderapp/models/user.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
 

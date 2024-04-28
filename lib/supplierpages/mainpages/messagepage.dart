@@ -1,7 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 //import 'package:traderapp/supplierpages/secondarypages/showuser.dart';
 import 'package:traderapp/supplierpages/secondarypage/showrequests.dart';
 import 'package:traderapp/supplierpages/secondarypage/showuser.dart';

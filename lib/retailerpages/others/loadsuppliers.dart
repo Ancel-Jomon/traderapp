@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/suppliertile.dart';
@@ -41,20 +39,23 @@ class ListSuppliers {
 
                         final data = snap.id;
 
-                        return Card(
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PlaceOrder(
-                                          id: data,
-                                        ),
-                                      ));
-                                },
-                                child: SizedBox(
-                                    height: 100,
-                                    child: SupplierTile(snapshot: snap))));
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
+                          child: Card(
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PlaceOrder(
+                                            id: data,
+                                          ),
+                                        ));
+                                  },
+                                  child: SizedBox(
+                                      height: 100,
+                                      child: SupplierTile(snapshot: snap)))),
+                        );
                       } else {
                         return const Center(child: CircularProgressIndicator());
                       }

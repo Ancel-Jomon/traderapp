@@ -37,7 +37,7 @@ class _ShowUserState extends State<ShowUser> {
         height: 10,
       ),
       (show == true
-          ? showuser(uidcontroller.text, false)
+          ? showuser(uidcontroller.text, true)
           : const Image(height: 100,width: 100,image: AssetImage('lib/assets/searching.png')))
     ],
           ),

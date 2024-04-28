@@ -49,15 +49,15 @@ class RegisterPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              MyTextFeild(hinttext: 'email', textController: _email),
+              MyTextFeild(hinttext: 'email', textController: _email,),
               const SizedBox(
                 height: 5,
               ),
-              MyTextFeild(hinttext: 'password', textController: _pword),
+              MyTextFeild(hinttext: 'password', textController: _pword,obscuretext: true,),
               const SizedBox(
                 height: 5,
               ),
-              MyTextFeild(hinttext: 'confirm password', textController: _cpword),
+              MyTextFeild(hinttext: 'confirm password', textController: _cpword,obscuretext: true,),
               const SizedBox(
                 height: 20,
               ),

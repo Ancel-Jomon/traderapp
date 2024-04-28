@@ -1,12 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
-import 'package:provider/provider.dart';
 import 'package:traderapp/api/pdf_api.dart';
-import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/invoiceitem.dart';
 import 'package:traderapp/models/user.dart';
 
@@ -94,9 +91,9 @@ class PdfApiGenerate {
 
   static Widget buildTotal(List<InvoiceItem> items) {
     double total = 0;
-    items.forEach((item) {
+    for (var item in items) {
       total += item.price * item.quantity;
-    });
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [

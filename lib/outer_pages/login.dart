@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 3,
                 ),
-                MyTextFeild(hinttext: 'password', textController: _pword),
+                MyTextFeild(hinttext: 'password', textController: _pword,obscuretext: true,),
                 const SizedBox(
                   height: 20,
                 ),

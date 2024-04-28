@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +28,7 @@ class RequestTile extends StatelessWidget {
             Text(data['company']),
             const SizedBox(height: 20,),
             MyButton(onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('you are now connected')));
               FirestoreConnection().requestoptions(true, connectiondatamap!);
             }, msg: 'accept'),MyButton(onPressed: () {
               FirestoreConnection().requestoptions(false, connectiondatamap!);

@@ -1,14 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:traderapp/services/firestoreingishts.dart';
 
 class Insights extends StatelessWidget {
   const Insights({super.key});
 
   @override
   Widget build(BuildContext context) {
+    FirestoreInsights().getorderdata(false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
