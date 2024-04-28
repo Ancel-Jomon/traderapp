@@ -21,7 +21,7 @@ class MyUser {
   ) {
     final data = snapshot.data();
     if (data?['role'] == 'supplier') {
-     
+     log('role supplier');
       return Supplier(
           supplierName: data?['name'],
           scompany: data?['company'],

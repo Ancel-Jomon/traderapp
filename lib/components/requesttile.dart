@@ -14,7 +14,7 @@ class RequestTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> data = snapshot?.data() ?? {'data':'empaty'};
     final connectiondatamap=connectiondata.data();
-    log(data.toString());
+   
     
     return Card(
       child: SizedBox(width: 200,

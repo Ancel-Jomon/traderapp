@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/models/current_userdetails.dart';
+import 'package:traderapp/models/supplier.dart';
 import 'package:traderapp/models/user.dart';
 import 'package:traderapp/services/firestoreoptions.dart';
 
 class ProfilePage extends StatefulWidget {
- 
   final userdata = FirebaseAuth.instance.currentUser;
   ProfilePage({super.key});
   @override
@@ -29,25 +29,15 @@ class _ProfilePageState extends State<ProfilePage> {
   String? url;
   String yelan = 'Edit Profile';
   bool iseditable = false;
-   final TextEditingController namecontroller =
-        TextEditingController();
-    final TextEditingController addresscontroller =
-        TextEditingController();
-    final TextEditingController phnocontroller =
-        TextEditingController();
-    final TextEditingController companycontroller =
-        TextEditingController();
-    
-   late MyUser user;
-    @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    
-    
-    //emailcontroller=
+  bool? value;
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController addresscontroller = TextEditingController();
+  final TextEditingController phnocontroller = TextEditingController();
+  final TextEditingController companycontroller = TextEditingController();
 
-  }
+  late MyUser user;
+  
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -56,23 +46,23 @@ class _ProfilePageState extends State<ProfilePage> {
     phnocontroller.dispose();
     companycontroller.dispose();
     super.dispose();
-
   }
+
   @override
   Widget build(BuildContext context) {
-    user=Provider.of<CurrentUserDraft>(context).getCurrentUser();
-    namecontroller.text=user.name;
-    addresscontroller.text=user.address ?? '';
-    phnocontroller.text=user.phno ?? '';
-    companycontroller.text=user.company ?? '';
+    user = Provider.of<CurrentUserDraft>(context).getCurrentUser();
+    namecontroller.text = user.name;
+    addresscontroller.text = user.address ?? '';
+    phnocontroller.text = user.phno ?? '';
+    companycontroller.text = user.company ?? '';
     final ImageProvider def = image != null
         ? MemoryImage(file!)
         : (user.imgurl != null
             ? NetworkImage(user.imgurl!)
             : const AssetImage(
                 'lib/assets/man.png',
-              )) as ImageProvider ;
-    log(user.imgurl.toString());
+              )) as ImageProvider;
+    log('initial url ${user.imgurl.toString()}');
     return Placeholder(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -104,8 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                         );
                       },
-                      child:
-                          CircleAvatar(radius: 50, backgroundImage: def),
+                      child: CircleAvatar(radius: 50, backgroundImage: def),
                     ),
                     IconButton(
                         icon: const Icon(Icons.add_a_photo_rounded),
@@ -149,13 +138,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 TextFormField(
                   controller: phnocontroller,
                   decoration: const InputDecoration(
-                    labelText: 'Place',
+                    labelText: 'Phno',
                     //suffixIcon: Icon(Icons.edit),
                   ),
                   enabled: iseditable,
                 ),
                 TextFormField(
-                  //controller: emailcontroller,
+                  controller: TextEditingController(text: widget.userdata!.email ),
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     //suffixIcon: Icon(Icons.edit),
@@ -181,18 +170,23 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: Text(yelan, style: const TextStyle(fontSize: 20)),
                       onPressed: () {
-                        log(namecontroller.text);
+                        log('dudesname ${namecontroller.text}');
                         setState(
                           () {
                             iseditable = !iseditable;
+                            value=true;
                             if (iseditable) {
                               yelan = 'Save Changes';
                             } else {
-                              yelan = 'editing...';
+                              updateuserinfo(
+                                  namecontroller.text,
+                                  companycontroller.text,
+                                  phnocontroller.text,
+                                  addresscontroller.text,user.imgurl);
+                              yelan = 'Edit Profile';
                             }
                           },
                         );
-                        updateuserinfo();
                       },
                     );
                   },
@@ -205,20 +199,38 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void updateuserinfo() async {
-    final imgurl=user.imgurl;
-    final obj=FirestoreWriteUser();
+  void updateuserinfo(String name, company, phno, address,imgurl) async {
+    showsnackbar(value);
+    Supplier userdata = Supplier(
+        supplierName: name, scompany: company, sphno: phno, saddress: address,simgurl: imgurl);
+    log(userdata.supplierName);
+    
+    final obj = FirestoreWriteUser();
     if (image != null) {
-      url = await obj.uploadprofileimage(image!);
+     url=  await obj.uploadprofileimage(image!);
     }
-    log(url ?? '');
-    if(imgurl !=null){
+   
+    if (imgurl != null && url != null) {
+      // if there is img in database and new image is uplaoded delete old image
       obj.deleteprofileimage(imgurl);
+      userdata.imgurl = url;
+    } else if (imgurl == null && url != null) {
+      //if no image in database add the new image
+      userdata.imgurl = url;
     }
+   
+
+    obj.updateprofile(userdata.toFirestore());
+    await FirestoreReadUser().readUserInfo().then((ctuser) {
+      showsnackbar(false);
+      Provider.of<CurrentUserDraft>(context, listen: false)
+          .loadCurrentUser(ctuser);
+    });
   }
 
-  void showsnackbar() {
-    ScaffoldMessenger.of(context).showSnackBar(
+  void showsnackbar(bool? value) {
+    if (value==true) {
+      ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Row(
           children: <Widget>[
@@ -232,15 +244,15 @@ class _ProfilePageState extends State<ProfilePage> {
         duration: Duration(seconds: 1),
       ),
     );
-
-    Future.delayed(const Duration(seconds: 1), () {
+    } else if(value==false) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Profile Updated'),
           duration: Duration(seconds: 1),
-        ),
-      );
-    });
+        ));
+    }
+
+    
   }
 
   uploadimage() async {

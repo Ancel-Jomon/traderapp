@@ -84,7 +84,7 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
               setState(() {
                 this.value = value;
               });
-              log('here');
+             
               FireSupOrder().deliverOrder(widget.snapshot);
             },
           )

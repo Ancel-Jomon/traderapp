@@ -21,12 +21,12 @@ class FirestoreAddUser {
     if (user is Supplier) {
       Supplier supplier = user;
       docum = supplier.toFirestore();
-      docum['role'] = supplier.role;
+      
       await userdetails.doc(uid).set(docum);
     } else {
       Retailer retailer = user as Retailer;
       docum = retailer.toFirestore();
-      docum['role'] = retailer.role;
+     
       await userdetails.doc(uid).set(docum);
     }
   }
@@ -36,7 +36,7 @@ class FirestoreReadUser {
   final user = FirebaseAuth.instance.currentUser;
 
   final docref = FirebaseFirestore.instance.collection('userdetails');
-  Future<MyUser> readUserInfo(BuildContext context) async {
+  Future<MyUser> readUserInfo() async {
     final doc = await docref.doc(user?.uid).get();
     final myuser= MyUser.fromFirestore(doc);
     return myuser;
@@ -46,6 +46,7 @@ class FirestoreReadUser {
 
 class FirestoreWriteUser{
  final user = FirebaseAuth.instance.currentUser;
+ final userref=FirebaseFirestore.instance.collection('userdetails');
   String imgurl = '';
   Future<String> uploadprofileimage(XFile image) async {
     try {
@@ -72,8 +73,12 @@ class FirestoreWriteUser{
 
   Future<void> deleteprofileimage(String url) async {
     final ref = FirebaseStorage.instance.refFromURL(url);
-    log(ref.fullPath);
+    log('delete url${ref.fullPath}');
     return await ref.delete();
+  }
+
+  void updateprofile(Map<String,dynamic> data){
+      userref.doc(user!.uid).set(data);
   }
  
 

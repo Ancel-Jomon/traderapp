@@ -23,7 +23,7 @@ class ShowRequests extends StatelessWidget {
                 stream: FirestoreConnection().receiverequest(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    log(snapshot.data!.docs.length.toString());
+                   
                     if (snapshot.data!.docs.isNotEmpty) {
                       return ListView.builder(
                         shrinkWrap: true,

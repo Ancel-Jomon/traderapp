@@ -15,8 +15,7 @@ class PdfApiGenerate {
       List<InvoiceItem> items, Map<String, dynamic> orderdatauser,MyUser user) async {
     final font = await PdfGoogleFonts.openSansLight();
     final name = DateTime.now().microsecondsSinceEpoch.toString();
-    log(orderdatauser.toString());
-    log(user.name);
+   
 
     final pdf = Document(theme: ThemeData.withFont(base: font));
     pdf.addPage(MultiPage(

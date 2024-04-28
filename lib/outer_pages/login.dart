@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
   navigate(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      await FirestoreReadUser().readUserInfo(context).then((myuser) {
+      await FirestoreReadUser().readUserInfo().then((myuser) {
         Provider.of<CurrentUserDraft>(context,listen: false).loadCurrentUser(myuser);
 
         if (myuser is Supplier) {

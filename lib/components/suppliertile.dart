@@ -15,7 +15,7 @@ class SupplierTile extends StatelessWidget {
       children: [
          CircleAvatar(
           radius: 40,
-          backgroundImage: (data!['imgurl'] != null ? NetworkImage(data['imgurl']) : AssetImage('/lib/assets/man.png')) as ImageProvider,
+          backgroundImage: (data!['imgurl'] != null ? NetworkImage(data['imgurl']) : const AssetImage('lib/assets/man.png')) as ImageProvider,
         ),
         const SizedBox(width: 20,),
         Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,

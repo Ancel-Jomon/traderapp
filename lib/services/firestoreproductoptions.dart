@@ -89,7 +89,7 @@ class FireStorage {
 
   Future<void> deleteimage(String url) async {
     final ref = FirebaseStorage.instance.refFromURL(url);
-    log(ref.fullPath);
+    log('delet path${ref.fullPath}');
     return await ref.delete();
   }
 
@@ -97,7 +97,7 @@ class FireStorage {
     if (img != null) {
       if (url != null && url != '') {
       final ref = FirebaseStorage.instance.refFromURL(url);
-      log(ref.fullPath);
+      log('updatepath ${ref.fullPath}');
       try {
         await ref.putFile(File(img.path));
       } on Exception catch (e) {

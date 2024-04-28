@@ -32,4 +32,16 @@ class Supplier extends MyUser {
         sphno: data?['phno'],
         simgurl: data?['imgurl']);
   }
+
+  @override
+  Map<String,dynamic> toFirestore(){
+    return {
+      'name': name,
+      'company': company,
+      'phno': phno,
+      'address': address,
+      'role':role,
+      'imgurl':imgurl
+    };
+  }
 }

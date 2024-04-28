@@ -30,4 +30,16 @@ class Retailer extends MyUser {
         rphno: data?['phno'],
         rimgurl: data?['imgurl']);
   }
+
+  @override
+  Map<String,dynamic> toFirestore(){
+    return {
+      'name': name,
+      'company': company,
+      'phno': phno,
+      'address': address,
+      'role':role,
+      'imgurl':imgurl
+    };
+  }
 }

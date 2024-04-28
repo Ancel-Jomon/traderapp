@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
+import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/supplier.dart';
 //import 'package:traderapp/models/user.dart';
@@ -31,7 +33,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   FirestoreAddUser addUser = FirestoreAddUser();
 
-    @override
+  @override
   void dispose() {
     name.dispose();
     company.dispose();
@@ -42,26 +44,27 @@ class _DetailsPageState extends State<DetailsPage> {
 
   void onPressed(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    
+
     final uid = user?.uid;
 
     if (selectedOption == 'supplier') {
-      addUser.addUserDetail(
-          Supplier(
-              supplierName: name.text,
-              scompany: company.text,
-              sphno: phone.text,
-              saddress: address.text),
-          uid);
+      Supplier supplier = Supplier(
+          supplierName: name.text,
+          scompany: company.text,
+          sphno: phone.text,
+          saddress: address.text);
+      addUser.addUserDetail(supplier, uid);
+      Provider.of<CurrentUserDraft>(context).loadCurrentUser(supplier);
+
       Navigator.pushNamedAndRemoveUntil(context, '/SupHome', (route) => false);
     } else if (selectedOption == 'retailer') {
-        addUser.addUserDetail(
-          Retailer(
-              retailername: name.text,
-              rcompany: company.text,
-              rphno: phone.text,
-              raddress: address.text),
-          uid);
+      Retailer retailer = Retailer(
+          retailername: name.text,
+          rcompany: company.text,
+          rphno: phone.text,
+          raddress: address.text);
+      addUser.addUserDetail(retailer, uid);
+       Provider.of<CurrentUserDraft>(context).loadCurrentUser(retailer);
 
       Navigator.pushNamedAndRemoveUntil(context, '/RetHome', (route) => false);
     }

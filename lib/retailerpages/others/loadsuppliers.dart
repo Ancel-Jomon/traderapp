@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,54 +24,52 @@ class ListSuppliers {
         }
         if (snapshot.hasData) {
           switch (snapshot.connectionState) {
-            
             case ConnectionState.active:
               return ListView.builder(
-                
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot<Map<String, dynamic>?> documentSnapshot =
                       snapshot.data!.docs[index]
                           as DocumentSnapshot<Map<String, dynamic>?>;
-                      
+
                   return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                     future: suppliertiledetail(documentSnapshot),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final DocumentSnapshot<Map<String, dynamic>?> snap =
                             snapshot.data!;
-                            
-                        final data =snap.id;
-                        
-                       
+
+                        final data = snap.id;
+
                         return Card(
                             child: InkWell(
                                 onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                             PlaceOrder(id: data,),
+                                        builder: (context) => PlaceOrder(
+                                          id: data,
+                                        ),
                                       ));
                                 },
                                 child: SizedBox(
                                     height: 100,
                                     child: SupplierTile(snapshot: snap))));
                       } else {
-                        return  const Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     },
                   );
-                  
                 },
               );
 
-            
             default:
               return const CircularProgressIndicator();
           }
         }
-        return const Center(child: CircularProgressIndicator(),);
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

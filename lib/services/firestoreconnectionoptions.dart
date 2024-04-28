@@ -80,7 +80,7 @@ class FirestoreConnection {
         .collection('requests');
     if (value) {
       data.remove('fromsupplier');
-      log(data.toString());
+    
       await conref.doc().set(data);
     }
     reqref
@@ -108,7 +108,7 @@ class FirestoreConnection {
           .get()
           .then((value) async {
         if (value.docs.isNotEmpty) {
-          log('connected');
+        
           return true;
         } else {
           await reqref
