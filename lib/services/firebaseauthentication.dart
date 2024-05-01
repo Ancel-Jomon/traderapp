@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:traderapp/models/user.dart';
 
@@ -21,6 +23,7 @@ class FireBaseAuthentication {
         return userCredential;
     }
     on FirebaseAuthException catch(e){
+      log(e.toString());
       throw Exception(e);
     }
 

@@ -81,7 +81,7 @@ class _AddProductState extends State<AddProduct> {
      }
     final Product product = Product(
         productName: nameTextController.text,
-        productPrice: int.parse(priceTextController.text,),url:url);
+        productPrice: double.parse(priceTextController.text,),url:url);
 
     FirestoreProduct().addProductInfo(product);
     navigate();

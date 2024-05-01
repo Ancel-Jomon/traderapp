@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:traderapp/models/orderdraft.dart';
@@ -6,7 +5,6 @@ import 'package:traderapp/models/product.dart';
 
 class OrderProducttile extends StatefulWidget {
   final Product product;
-  
 
   const OrderProducttile({super.key, required this.product});
 
@@ -27,7 +25,9 @@ class _OrderProducttileState extends State<OrderProducttile> {
 
   @override
   Widget build(BuildContext context) {
-        final ImageProvider<Object>?  image= widget.product.url != null ? NetworkImage(widget.product.url!) :const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>?;
+    final ImageProvider<Object>? image = widget.product.url != null
+        ? NetworkImage(widget.product.url!)
+        : const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>?;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -37,9 +37,7 @@ class _OrderProducttileState extends State<OrderProducttile> {
           Expanded(
             child: Row(
               children: [
-                 CircleAvatar(
-                    radius: 40,
-                    backgroundImage:image),
+                CircleAvatar(radius: 40, backgroundImage: image),
                 const SizedBox(
                   width: 20,
                 ),
@@ -47,7 +45,7 @@ class _OrderProducttileState extends State<OrderProducttile> {
                   child: Column(
                     children: [
                       Text(
-                        widget.product.productName ,
+                        widget.product.productName,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
@@ -64,6 +62,8 @@ class _OrderProducttileState extends State<OrderProducttile> {
                 children: [
                   IconButton(
                       style: ButtonStyle(
+                          foregroundColor: MaterialStatePropertyAll(
+                              Theme.of(context).colorScheme.tertiary),
                           backgroundColor: MaterialStatePropertyAll(
                               Theme.of(context).colorScheme.primary)),
                       onPressed: () => decrement(),
@@ -74,6 +74,8 @@ class _OrderProducttileState extends State<OrderProducttile> {
                   ),
                   IconButton(
                       style: ButtonStyle(
+                          foregroundColor: MaterialStatePropertyAll(
+                              Theme.of(context).colorScheme.tertiary),
                           backgroundColor: MaterialStatePropertyAll(
                               Theme.of(context).colorScheme.primary)),
                       onPressed: () => increment(),

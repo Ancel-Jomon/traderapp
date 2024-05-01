@@ -41,7 +41,7 @@ class _RetHomeState extends State<RetHome> {
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
         title: const Text(
-          'home',
+          'Home',
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         foregroundColor: Theme.of(context).colorScheme.tertiary,

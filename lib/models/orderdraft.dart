@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/models/product.dart';
 
 class OrderDraft extends ChangeNotifier {
-  int total = 0;
+  double total = 0;
  final Map<Product, int> orderitems = {};
  final Map<Product,String> existingitems={};
 
@@ -48,7 +48,7 @@ class OrderDraft extends ChangeNotifier {
     orderitems.clear();
   }
 
-  int totalPrice(){
+  double totalPrice(){
    
     
    return total;

@@ -40,7 +40,7 @@ class _SupHomeState extends State<SupHome> {
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
         title: const Text(
-          'home',
+          'Home',
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         foregroundColor: Theme.of(context).colorScheme.tertiary,

@@ -16,7 +16,7 @@ class FirestoreOrder {
     itemref = db.collection('orderitems');
     batch = db.batch();
   }
-  void placeOrderitems(Map<Product, int> map, String id, int total) async {
+  void placeOrderitems(Map<Product, int> map, String id,double total) async {
     List<DocumentReference> ids = [];
     for (var e in map.entries) {
       var docref = itemref.doc();
@@ -29,7 +29,7 @@ class FirestoreOrder {
     placeOrder(id, ids, total);
   }
 
-  void placeOrder(String id, List<DocumentReference> ids, int total) async {
+  void placeOrder(String id, List<DocumentReference> ids, double total) async {
     final docum = {
       'retailer_id': '/userdetails/${user?.uid}',
       'supplier_id': '/userdetails/$id',
@@ -85,7 +85,7 @@ class FirestoreOrder {
       Map<Product, int> orderitemsmap,
       Map<Product, String> existingitems,
       DocumentReference id,
-      int total) async {
+      double total) async {
     List<DocumentReference> ids = [];
     
     for (var e in orderitemsmap.entries) {

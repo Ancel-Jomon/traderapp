@@ -1,6 +1,6 @@
 class InvoiceItem{
   String name;
-  int price;
+  num price;
  int  quantity;
 
  InvoiceItem({required this.name,required this.price,required this.quantity});

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class Product extends Equatable{
   final String productName;
-  final int productPrice;
+  final num productPrice;
   final String? id;
   final String? url;
 

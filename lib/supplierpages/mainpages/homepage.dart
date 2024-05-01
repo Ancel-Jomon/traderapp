@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Expanded(
                       child: Container(
                     child: TabBarView(controller: controller, children: [
-                      
+                      const Insights(),
                       Container(child: ListProducts().allProducts(productStream)),
-                       const Insights(),
+                       
                      
                     ]),
                   ))

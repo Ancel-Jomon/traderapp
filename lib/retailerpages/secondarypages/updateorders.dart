@@ -86,7 +86,7 @@ class _UpdateOrdersState extends State<UpdateOrders> {
                   children: [
                     Consumer<OrderDraft>(
                       builder: (context, value, child) {
-                        int total = value.totalPrice();
+                        double total = value.totalPrice();
                         return MyButton(
                             onPressed: () =>
                                 onpressed(widget.snapshot.reference, total),
@@ -107,7 +107,7 @@ class _UpdateOrdersState extends State<UpdateOrders> {
     );
   }
 
-  onpressed(DocumentReference id, int total) {
+  onpressed(DocumentReference id, double total) {
     if (!checkitems() ) {
      setState(() {
         msg='Sorry ! cannot place orders with zero items';
