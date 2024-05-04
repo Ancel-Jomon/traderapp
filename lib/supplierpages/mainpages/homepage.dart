@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/services/firestoreproductoptions.dart';
@@ -15,54 +14,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  
   Stream<QuerySnapshot>? productStream = FirestoreProduct().readProductInfo();
-      void onPressed() {
+  void onPressed() {
     Navigator.pushNamed(context, '/AddProduct');
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
     TabController controller = TabController(length: 2, vsync: this);
-    return Scaffold(backgroundColor: Theme.of(context).colorScheme.tertiary,
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       body: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 30),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: TabBar(
-                      unselectedLabelColor:
-                          Theme.of(context).colorScheme.secondary,
-                      controller: controller,
-                      tabs: const [
-                        Text(
-                          'Products',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Text(
-                          'Insights',
-                          style: TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                      child: Container(
-                    child: TabBarView(controller: controller, children: [
-                      const Insights(),
-                      Container(child: ListProducts().allProducts(productStream)),
-                       
-                     
-                    ]),
-                  ))
-                ],
-              ),
-              floatingActionButton:  FloatingActionButton(
-          onPressed: onPressed,
-          child: const Icon(Icons.add)),
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 30),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            child: TabBar(
+              unselectedLabelColor: Theme.of(context).colorScheme.secondary,
+              controller: controller,
+              tabs: const [
+                Text(
+                  'Products',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Insights',
+                  style: TextStyle(fontSize: 18),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+              child: Container(
+            child: TabBarView(controller: controller, children: [
+              Container(child: ListProducts().allProducts(productStream)),
+              const Insights(),
+            ]),
+          ))
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: onPressed, child: const Icon(Icons.add)),
     );
   }
 }

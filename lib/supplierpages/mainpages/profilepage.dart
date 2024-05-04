@@ -62,7 +62,6 @@ class _ProfilePageState extends State<ProfilePage> {
             : const AssetImage(
                 'lib/assets/man.png',
               )) as ImageProvider;
-    log('initial url ${user.imgurl.toString()}');
     return Placeholder(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -170,7 +169,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: Text(yelan, style: const TextStyle(fontSize: 20)),
                       onPressed: () {
-                        log('dudesname ${namecontroller.text}');
                         setState(
                           () {
                             iseditable = !iseditable;
@@ -203,7 +201,6 @@ class _ProfilePageState extends State<ProfilePage> {
     showsnackbar(value);
     Supplier userdata = Supplier(
         supplierName: name, scompany: company, sphno: phno, saddress: address,simgurl: imgurl);
-    log(userdata.supplierName);
     
     final obj = FirestoreWriteUser();
     if (image != null) {
@@ -265,7 +262,6 @@ class _ProfilePageState extends State<ProfilePage> {
         image = img;
       });
 
-      log(img.path);
     }
   }
 }

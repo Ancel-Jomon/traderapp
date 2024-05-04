@@ -30,6 +30,7 @@ class MyUser {
           simgurl: data?['imgurl']);
     } else {
       return Retailer(
+        
           retailername: data?['name'],
           rcompany: data?['company'],
           rphno: data?['phno'],

@@ -24,7 +24,6 @@ class ShowRequests extends StatelessWidget {
                   if (snapshot.hasData) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.active:
-                        log(snapshot.data!.docs.length.toString());
                         if(snapshot.data!.docs.isNotEmpty){
                           return ListView.builder(
                           shrinkWrap: true,
@@ -38,7 +37,6 @@ class ShowRequests extends StatelessWidget {
                               builder: (context, snapshot) {
                                 final data = snapshot.data;
                                if (snapshot.hasData) {
-                                  log(data!.id);
                                 return RequestTile(
                                   snapshot: data,connectiondata: connectiondata,
                                 );

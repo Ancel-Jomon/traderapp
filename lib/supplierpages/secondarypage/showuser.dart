@@ -78,7 +78,6 @@ class _ShowUserState extends State<ShowUser> {
                             await  FirestoreConnection()
                                   .sendrequest(id, value)
                                   .then((returnvalue) {
-                                    log(returnvalue.toString());
                                 if (returnvalue == true) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                      const SnackBar(

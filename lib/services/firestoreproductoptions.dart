@@ -75,7 +75,6 @@ class FireStorage {
       final task = await ref.putFile(File(image.path));
       switch (task.state) {
         case TaskState.running:
-          log('running');
         case TaskState.success:
           imgurl = await ref.getDownloadURL();
 
@@ -89,7 +88,6 @@ class FireStorage {
 
   Future<void> deleteimage(String url) async {
     final ref = FirebaseStorage.instance.refFromURL(url);
-    log('delet path${ref.fullPath}');
     return await ref.delete();
   }
 
@@ -97,7 +95,6 @@ class FireStorage {
     if (img != null) {
       if (url != null && url != '') {
       final ref = FirebaseStorage.instance.refFromURL(url);
-      log('updatepath ${ref.fullPath}');
       try {
         await ref.putFile(File(img.path));
       } on Exception catch (e) {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/retailerpages/secondarypages/deleteorder.dart';
 import 'package:traderapp/retailerpages/secondarypages/updateorders.dart';
@@ -40,7 +41,8 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 orderdata = snapshot.data!;
-                
+                Timestamp stamp= data?['timestamp'];
+                DateTime datetime=stamp.toDate();
                 return Column(children: [Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -49,6 +51,7 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
                     ),Text('\$${data?['total'] ?? 0}')
                   ],
                 ),
+                Text(DateFormat().format(datetime)),
                 PerOrderItems(snapshot: widget.snapshot, value:widget.options, orderdata: orderdata)],);
               } else {
                 return const Center(

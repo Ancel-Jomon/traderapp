@@ -107,7 +107,6 @@ class _AddProductState extends State<AddProduct> {
         image=img;
       });
       
-      log(img.path);
     }
   }
 }

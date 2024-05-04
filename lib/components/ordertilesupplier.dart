@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:traderapp/services/firestoreconnectionoptions.dart';
 import 'package:traderapp/services/firestoreorderoptions.dart';
 import 'package:traderapp/supplierpages/others/loadorderitems.dart';
@@ -39,6 +40,8 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 orderdata = snapshot.data!;
+                 Timestamp stamp= data?['timestamp'];
+                DateTime datetime=stamp.toDate();
                 return Column(
                   children: [
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,6 +53,8 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
                         Text('\$${data?['total'] ?? 0}'),
                       ],
                     ),
+                                    Text(DateFormat().format(datetime)),
+
                     PerOrderItems(
                       snapshot: widget.snapshot,
                       value: widget.options,

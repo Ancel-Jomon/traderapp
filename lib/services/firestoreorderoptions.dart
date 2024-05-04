@@ -44,11 +44,11 @@ class FirestoreOrder {
   Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforSuppliers( bool value) {
     if (!value) {
       return orderref
-        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: false)
+        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: false).orderBy('timestamp',descending: true)
         .snapshots();
     } else {
       return orderref
-        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: true)
+        .where('supplier_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered',isEqualTo: true).orderBy('timestamp',descending: true)
         .snapshots();
     }
   }
@@ -56,11 +56,11 @@ class FirestoreOrder {
   Stream<QuerySnapshot<Map<String, dynamic>>> retriveOrdersforRetailer(bool value) {
     if (!value) {
       return orderref
-        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: false)
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: false).orderBy('timestamp',descending: true)
         .snapshots();
     } else {
       return orderref
-        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: true)
+        .where('retailer_id', isEqualTo: '/userdetails/${user?.uid}').where('delivered', isEqualTo: true).orderBy('timestamp',descending: true)
         .snapshots();
     }
   }

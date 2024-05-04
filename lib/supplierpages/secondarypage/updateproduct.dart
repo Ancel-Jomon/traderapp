@@ -87,7 +87,6 @@ class _UpdateProductState extends State<UpdateProduct> {
         image = img;
       });
 
-      log(img.path);
     }
   }
 

@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/linechart.dart';
@@ -13,9 +15,10 @@ class Insights extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: FutureBuilder(
-            future: FirestoreInsights().thismonthorderdata(true),
+            future: FirestoreInsights().thismonthorderdata(false),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                log(snapshot.data!.$2.toString());
                 return Column(
                   //mainAxisSize: MainAxisSize.min,
                   children: [
@@ -57,12 +60,12 @@ class Insights extends StatelessWidget {
                         )
                       ],
                     ),
-                    Card(
+                     Card(
                         child: SizedBox(
                             height: 400,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                             // child: LineChartClass.linechart(snapshot.data!.$2),
+                              child: LineChartClass.linechart(snapshot.data!.$2),
                             )))
                   ],
                 );
