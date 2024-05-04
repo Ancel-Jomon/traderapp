@@ -37,8 +37,8 @@ class FirestoreProduct {
     await conref.doc(id).delete();
   }
 
-  void updateproduct(
-      Product product, String? name, int? price, String? url) async {
+  void updateproduct(Product product, String? name, int? price, String? url,
+      String? selectedOption, String? description) async {
     final docum = product.toFirestore();
     if (name != null) {
       docum['name'] = name;
@@ -49,6 +49,12 @@ class FirestoreProduct {
     if (url != null) {
       docum['imgurl'] = url;
     }
+    if (selectedOption != null) {
+      docum['availability'] = selectedOption;
+    }
+    if (description != null) {
+      docum['description'] = description;
+    }
 
     await conref.doc(product.id).update(docum);
   }
@@ -57,7 +63,10 @@ class FirestoreProduct {
 class FireretProduct {
   final conref = FirebaseFirestore.instance.collection('products');
   Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(String id) {
-    return conref.where('uid', isEqualTo: '/userdetails/$id').snapshots();
+    return conref
+        .where('uid', isEqualTo: '/userdetails/$id')
+        //.where('Availability', isEqualTo: 'Available')
+        .snapshots();
   }
 }
 
@@ -94,21 +103,18 @@ class FireStorage {
   Future<String?> updateimage(XFile? img, String? url) async {
     if (img != null) {
       if (url != null && url != '') {
-      final ref = FirebaseStorage.instance.refFromURL(url);
-      try {
-        await ref.putFile(File(img.path));
-      } on Exception catch (e) {
-        log(e.toString());
+        final ref = FirebaseStorage.instance.refFromURL(url);
+        try {
+          await ref.putFile(File(img.path));
+        } on Exception catch (e) {
+          log(e.toString());
+        }
+        return await ref.getDownloadURL();
+      } else {
+        return await uploadimage(img);
       }
-      return await ref.getDownloadURL();
-    }else{
-     return await uploadimage(img);
-    }
-      
     } else {
       return null;
     }
-
-    
   }
 }

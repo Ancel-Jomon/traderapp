@@ -12,7 +12,7 @@ import 'package:traderapp/models/orderdraft.dart';
 import 'package:traderapp/outer_pages/details.dart';
 import 'package:traderapp/retailerpages/home.dart';
 import 'package:traderapp/supplierpages/home.dart';
-import 'package:traderapp/supplierpages/others/addproduct.dart';
+import 'package:traderapp/supplierpages/secondarypage/addproduct.dart';
 import 'package:traderapp/themes.dart';
 
 Future main() async {

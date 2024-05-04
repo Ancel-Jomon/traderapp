@@ -24,7 +24,8 @@ class ProductTile extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(product.productName,style: const TextStyle(),),
-                  Text('price:${product.productPrice.toString()}')
+                  Text('price:${product.productPrice.toString()}'),
+                  Text('Availability :${product.availability}',style: TextStyle(color: (product.availability == 'Available' ? Colors.green : Colors.red)),)
                 ],
               ),
             ],

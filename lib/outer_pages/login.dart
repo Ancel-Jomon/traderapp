@@ -103,10 +103,6 @@ class _LoginPageState extends State<LoginPage> {
                               return 'password is required';
                         }
                         return null;
-                      },onChanged: (value) {
-                        setState(() {
-                          
-                        });
                       },),
                       const SizedBox(
                         height: 20,

@@ -25,71 +25,86 @@ class _OrderProducttileState extends State<OrderProducttile> {
 
   @override
   Widget build(BuildContext context) {
-    final ImageProvider<Object>? image = widget.product.url != null
+    final ImageProvider<Object> image = widget.product.url != null
         ? NetworkImage(widget.product.url!)
-        : const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>?;
+        : const AssetImage('lib/assets/defprod.png') as ImageProvider<Object>;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Expanded(
+            child: Image(
+          image: image,
+          fit: BoxFit.cover,
+        )),
+        Expanded(
+            flex: 2,
+            child: Column(
               children: [
-                CircleAvatar(radius: 40, backgroundImage: image),
-                const SizedBox(
-                  width: 20,
+                Text(
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w300),
+                  widget.product.productName,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Flexible(
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.product.productName,
-                        overflow: TextOverflow.ellipsis,
+                Text(
+                    "product price : ${widget.product.productPrice.toString()}"),
+                Text(
+                  'Availability ${widget.product.availability}',
+                  style: TextStyle(
+                      color: (widget.product.availability == 'Available'
+                          ? Colors.green
+                          : Colors.red)),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            foregroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.tertiary),
+                            backgroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.primary)),
+                        onPressed: (widget.product.availability == 'Available'
+                            ? () => decrement()
+                            : null),
+                        child: const Icon(Icons.remove)),
+                    Consumer<OrderDraft>(
+                      builder: (context, value, child) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child:
+                            Text('${value.viewOderItemCount(widget.product)}'),
                       ),
-                      Text(
-                          "product price : ${widget.product.productPrice.toString()}"),
-                    ],
-                  ),
+                    ),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            foregroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.tertiary),
+                            backgroundColor: MaterialStatePropertyAll(
+                                Theme.of(context).colorScheme.background)),
+                        onPressed: (widget.product.availability == 'Available'
+                            ? () => increment()
+                            : null),
+                        child: const Icon(Icons.add))
+                  ],
                 ),
+                Consumer<OrderDraft>(
+                  builder: (context, value, child) => Text(
+                      '${value.viewOderItemCount(widget.product) * widget.product.productPrice}'),
+                )
               ],
-            ),
-          ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStatePropertyAll(
-                              Theme.of(context).colorScheme.tertiary),
-                          backgroundColor: MaterialStatePropertyAll(
-                              Theme.of(context).colorScheme.primary)),
-                      onPressed: () => decrement(),
-                      icon: const Icon(Icons.remove)),
-                  Consumer<OrderDraft>(
-                    builder: (context, value, child) =>
-                        Text('${value.viewOderItemCount(widget.product)}'),
-                  ),
-                  IconButton(
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStatePropertyAll(
-                              Theme.of(context).colorScheme.tertiary),
-                          backgroundColor: MaterialStatePropertyAll(
-                              Theme.of(context).colorScheme.primary)),
-                      onPressed: () => increment(),
-                      icon: const Icon(Icons.add))
-                ],
-              ),
-              Consumer<OrderDraft>(
-                builder: (context, value, child) => Text(
-                    '${value.viewOderItemCount(widget.product) * widget.product.productPrice}'),
-              )
-            ],
-          )
-        ],
-      ),
+            ))
+      ]),
     );
   }
 }

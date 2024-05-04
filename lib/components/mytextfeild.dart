@@ -6,21 +6,23 @@ class MyTextFeild extends StatelessWidget {
   final TextEditingController textController;
   final bool? obscuretext;
   final String? Function(String?)? validator;
-  final void Function(String)? onChanged;
-
+  final int? maxLines;
   const MyTextFeild(
       {super.key,
       required this.hinttext,
-      required this.textController,this.onChanged,
+      required this.textController,
       this.obscuretext,
-      this.validator});
+      this.validator,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: TextFormField(//onChanged: onChanged,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: TextFormField(
+        maxLines: maxLines ?? 1,
+        keyboardType: maxLines == null ? null : TextInputType.multiline,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: textController,
         obscureText: obscuretext ?? false,
         decoration: InputDecoration(
@@ -38,8 +40,10 @@ class MyTextFeild extends StatelessWidget {
                 borderSide:
                     BorderSide(color: Theme.of(context).colorScheme.primary)),
             labelText: hinttext,
-            labelStyle:
-                TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+            
+            labelStyle: TextStyle(
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                     color: Theme.of(context).colorScheme.background)),
