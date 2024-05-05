@@ -19,7 +19,7 @@ class PlaceOrder extends StatefulWidget {
 
 class _PlaceOrderState extends State<PlaceOrder> {
   Stream<QuerySnapshot>? stream(id) {
-    return FireretProduct().readSupplierProduct(id);
+    return FireretProduct().readSupplierProduct(id,'Available');
   }
 
   onPressed(String id,double total) {

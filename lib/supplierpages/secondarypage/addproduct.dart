@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -108,8 +107,6 @@ class _AddProductState extends State<AddProduct> {
   }
 
   onPressed(BuildContext context) async {
-    log(selectedOption.toString());
-    log(descriptionTextController.text.runtimeType.toString());
     setState(() {
       flag = true;
     });

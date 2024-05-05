@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class Insights extends StatelessWidget {
             future: FirestoreInsights().thismonthorderdata(false),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                log(snapshot.data!.$2.toString());
                 return Column(
                   //mainAxisSize: MainAxisSize.min,
                   children: [

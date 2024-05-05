@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,7 +61,6 @@ class _RetProfilePageState extends State<RetProfilePage> {
             : const AssetImage(
                 'lib/assets/man.png',
               )) as ImageProvider;
-    log('initial url ${user.imgurl.toString()}');
     return Placeholder(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -170,7 +168,6 @@ class _RetProfilePageState extends State<RetProfilePage> {
                       ),
                       child: Text(yelan, style: const TextStyle(fontSize: 20)),
                       onPressed: () {
-                        log('dudesname ${namecontroller.text}');
                         setState(
                           () {
                             iseditable = !iseditable;
@@ -203,7 +200,6 @@ class _RetProfilePageState extends State<RetProfilePage> {
     showsnackbar(value);
     Retailer userdata = Retailer(
         retailername: name, rcompany: company, rphno: phno, raddress: address,rimgurl: imgurl);
-    //log(userdata.supplierName);
     
     final obj = FirestoreWriteUser();
     if (image != null) {
@@ -265,7 +261,6 @@ class _RetProfilePageState extends State<RetProfilePage> {
         image = img;
       });
 
-      log(img.path);
     }
   }
 }

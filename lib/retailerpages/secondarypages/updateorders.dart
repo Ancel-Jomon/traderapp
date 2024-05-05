@@ -21,7 +21,7 @@ class UpdateOrders extends StatefulWidget {
 class _UpdateOrdersState extends State<UpdateOrders> {
   String msg = '';
   Stream<QuerySnapshot>? stream(String id) {
-    return FireretProduct().readSupplierProduct(id);
+    return FireretProduct().readSupplierProduct(id,'Available');
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> supplierdetail(

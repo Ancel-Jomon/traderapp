@@ -1,6 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
 
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       await FirestoreReadUser().readUserInfo().then((myuser) {
-        log('currentuder loaded');
         Provider.of<CurrentUserDraft>(context,listen: false).loadCurrentUser(myuser);
 
         if (myuser is Supplier) {

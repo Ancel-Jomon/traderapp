@@ -62,7 +62,7 @@ class Insights extends StatelessWidget {
                             height: 400,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                             // child: LineChartClass.linechart(snapshot.data!.$2),
+                              child: LineChartClass.linechart(snapshot.data!.$2),
                             )))
                   ],
                 );

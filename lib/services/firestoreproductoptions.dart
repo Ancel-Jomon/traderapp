@@ -62,11 +62,18 @@ class FirestoreProduct {
 
 class FireretProduct {
   final conref = FirebaseFirestore.instance.collection('products');
-  Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(String id) {
-    return conref
-        .where('uid', isEqualTo: '/userdetails/$id')
-        //.where('Availability', isEqualTo: 'Available')
-        .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(
+      String id, String availability) {
+        final filters=['Available','Not Available'];
+    try {
+      return conref
+          .where('uid', isEqualTo: '/userdetails/$id')
+          .where('availability', whereIn: filters)
+          .snapshots();
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 }
 

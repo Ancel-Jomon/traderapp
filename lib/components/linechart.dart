@@ -1,15 +1,12 @@
-import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class LineChartClass {
-  static LineChart linechart(Map<DateTime, int> data) {
-    log('linecgart called');
+  static LineChart linechart(Map<DateTime, double> data) {
     int i = -1;
     final datelist = data.keys.toList();
-    log(datelist.toString());
     double maxY = data.entries
         .reduce(
           (value, element) {
@@ -61,7 +58,6 @@ class LineChartClass {
                 if (value >= 0 && datelist.length > value) {
                   switch (value) {
                     case 0:
-                      //log('case0');
                       return Text(DateFormat('d').format(datelist[0]));
                     case 1:
                       return Text(DateFormat('d').format(datelist[1]));

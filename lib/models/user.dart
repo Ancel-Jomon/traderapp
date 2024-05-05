@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:traderapp/models/retailer.dart';
@@ -21,7 +20,6 @@ class MyUser {
   ) {
     final data = snapshot.data();
     if (data?['role'] == 'supplier') {
-     log('role supplier');
       return Supplier(
           supplierName: data?['name'],
           scompany: data?['company'],
