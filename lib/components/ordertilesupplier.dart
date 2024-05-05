@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,21 +39,21 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 orderdata = snapshot.data!;
-                 Timestamp stamp= data?['timestamp'];
-                DateTime datetime=stamp.toDate();
+                Timestamp stamp = data?['timestamp'];
+                DateTime datetime = stamp.toDate();
                 return Column(
                   children: [
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'ORDER FROM:${orderdata['name']}',
                           style: const TextStyle(fontSize: 20),
                         ),
-                        Text('\$${data?['total'] ?? 0}'),
+                        Text('₹${data?['total'] ?? 0}'),
                       ],
                     ),
-                                    Text(DateFormat().format(datetime)),
-
+                    Text(DateFormat().format(datetime)),
                     PerOrderItems(
                       snapshot: widget.snapshot,
                       value: widget.options,
@@ -69,7 +68,6 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
               }
             },
           ),
-          
           showoptions()
         ],
       ),
@@ -88,7 +86,7 @@ class _OrderTileSupplierState extends State<OrderTileSupplier> {
               setState(() {
                 this.value = value;
               });
-             
+
               FireSupOrder().deliverOrder(widget.snapshot);
             },
           )

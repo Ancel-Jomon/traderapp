@@ -65,7 +65,7 @@ class PerOrderItems extends StatelessWidget {
                       )),
                       Expanded(
                           child: Text(
-                        '\$${snap['price'] * snap['quantity']}',
+                        '₹${snap['price'] * snap['quantity']}',
                         textAlign: TextAlign.end,
                       )),
                     ],
@@ -87,13 +87,13 @@ class PerOrderItems extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                title: const Text('generate bill'),
+              builder: (context) => AlertDialog(backgroundColor: Theme.of(context).colorScheme.secondary,
+                title:  Text('generate bill',style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                        'files will downloaded to: /storage/emulated/0/Download'),
+                     Text(
+                        'files will downloaded to: /storage/emulated/0/Download',style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
                     MyButton(
                         onPressed: () async {
                            Navigator.pop(context,true);

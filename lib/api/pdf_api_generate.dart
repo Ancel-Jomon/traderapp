@@ -69,7 +69,7 @@ class PdfApiGenerate {
   }
 
   static Widget buildtable(List<InvoiceItem> items) {
-    final headers = ['product name', 'price', 'quantity', 'subtotal'];
+    final headers = ['product name', 'price(Rs)', 'quantity', 'subtotal(Rs)'];
     final data = items.map((e) {
       return [e.name, e.price, e.quantity, e.price * e.quantity];
     }).toList();
@@ -100,7 +100,7 @@ class PdfApiGenerate {
         SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.only(right: 10.0),
-          child: Text('Total: \$${total.toStringAsFixed(2)}',
+          child: Text('Total: Rs${total.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
       ],

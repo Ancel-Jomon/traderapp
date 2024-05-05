@@ -1,6 +1,5 @@
 
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:traderapp/components/linechart.dart';
 import 'package:traderapp/services/firestoreingishts.dart';
@@ -20,33 +19,15 @@ class Insights extends StatelessWidget {
                 return Column(
                   //mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Card(
-                          child: SizedBox(
-                            width: 170,
-                            height: 170,
-                            child: PieChart(PieChartData(
-                                borderData: FlBorderData(show: false),
-                                sections: [
-                                  PieChartSectionData(
-                                      value: 10, color: Colors.amber),
-                                  PieChartSectionData(
-                                      value: 40, color: Colors.blue),
-                                  PieChartSectionData(
-                                      value: 50, color: Colors.green)
-                                ])),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        
                         Column(
                           children: [
                             Card(
                               color: Colors.blue,
-                              child: Text(
-                                snapshot.data!.$1.toString(),
+                              child: Text('₹ ${
+                                snapshot.data!.$1.toString()}',
                                 style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.tertiary,

@@ -32,7 +32,7 @@ Future<bool> showLogoutDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
     builder: (context) {
-      return AlertDialog(
+      return AlertDialog(backgroundColor: Theme.of(context).colorScheme.secondary,
         title: const Text('sign out'),
         content: const Text('are you sure'),
         actions: [

@@ -48,7 +48,7 @@ class _OrderTileRetailerState extends State<OrderTileRetailer> {
                     Text(
                       'ORDER TO:${orderdata!['name']}',
                       style: const TextStyle(fontSize: 20),
-                    ),Text('\$${data?['total'] ?? 0}')
+                    ),Text('₹${data?['total'] ?? 0}')
                   ],
                 ),
                 Text(DateFormat().format(datetime)),
