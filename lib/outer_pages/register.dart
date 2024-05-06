@@ -2,31 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
 import 'package:traderapp/services/firebaseauthentication.dart';
-//import 'package:traderapp/outer_pages/details.dart';
-//import 'package:traderapp/themes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:traderapp/services/firebaseemailverification.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? changepage;
-  RegisterPage({super.key, required this.changepage});
+  const RegisterPage({super.key, required this.changepage});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _email = TextEditingController();
-
   final TextEditingController _pword = TextEditingController();
-
   final TextEditingController _cpword = TextEditingController();
 
   final formkey = GlobalKey<FormState>();
+  bool _isEmailVerified = false;
 
   void register(BuildContext context) async {
-    if(formkey.currentState!.validate()){
+    if (formkey.currentState!.validate()) {
       final fireBaseAuthentication = FireBaseAuthentication();
-    await fireBaseAuthentication
-        .createWithEmailPassword(_email.text.trim(), _pword.text.trim())
-        .then((value) => navigate(context));
+      await fireBaseAuthentication
+          .createWithEmailPassword(_email.text.trim(), _pword.text.trim())
+          .then((usercredential) {
+        if (usercredential.user!.emailVerified) {
+          navigate(context);
+        } else {
+         
+         gotoemailverification(context);
+          
+
+        }
+      });
     }
   }
+  void gotoemailverification(BuildContext context) {
+    Navigator.popAndPushNamed(context, '/EmailVerification');
+  }
 
-  navigate(BuildContext context) {
+void  navigate(BuildContext context) {
     Navigator.pop(context);
     Navigator.pushNamed(context, '/DetailsPage');
   }
@@ -97,7 +113,7 @@ class RegisterPage extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary),
                       ),
                       GestureDetector(
-                        onTap: changepage,
+                        onTap: widget.changepage,
                         child: Text(
                           'Login Now',
                           style: TextStyle(
@@ -136,11 +152,14 @@ class RegisterPage extends StatelessWidget {
   }
 
   String? validateEmail(String? email) {
-    RegExp emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    RegExp emailRegex = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     final isEmailValid = emailRegex.hasMatch(email ?? '');
     if (!isEmailValid) {
       return "Please enter a valid email";
     }
     return null;
   }
+  
+  
 }

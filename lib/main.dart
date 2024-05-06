@@ -10,6 +10,7 @@ import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/orderdraft.dart';
 
 import 'package:traderapp/outer_pages/details.dart';
+import 'package:traderapp/outer_pages/emailverfication.dart';
 import 'package:traderapp/retailerpages/home.dart';
 import 'package:traderapp/supplierpages/home.dart';
 import 'package:traderapp/supplierpages/secondarypage/addproduct.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
           '/SupHome': (context) => SupHome(),
           '/AddProduct': (context) => AddProduct(),
           '/RetHome': (context) => RetHome(),
-          '/LoginOrRegister': (context) => LoginOrRegister()
+          '/LoginOrRegister': (context) => LoginOrRegister(),
+          '/EmailVerification':(context) => EmailVerification()
         },
       ),
     );
@@ -62,7 +64,6 @@ class PreLogin extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
             return const LoginOrRegister();
-
           default:
             return Center(child: CircularProgressIndicator());
         }

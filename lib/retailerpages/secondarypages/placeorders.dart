@@ -11,7 +11,7 @@ import 'package:traderapp/services/firestoreproductoptions.dart';
 
 class PlaceOrder extends StatefulWidget {
   final String id;
-   final List filters=['Available','Not Available','Available Soon'];
+   final List filters=['Available','Not Available','Available Soon','none'];
 
    PlaceOrder({super.key, required this.id});
 
@@ -192,47 +192,49 @@ class Filter extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  const Text('Availability'),
-                  Column(
-                    children: [
-                      ListTile(
-                        title: const Text('Available'),
-                        leading: Checkbox(
-                            value: available, onChanged: onchangedavailable),
-                      ),
-                      ListTile(
-                        title: const Text('Not Available'),
-                        leading: Checkbox(
-                            value: notavailable,
-                            onChanged: onchangednotavailable),
-                      ),
-                      ListTile(
-                        title: const Text('Available soon'),
-                        leading: Checkbox(
-                            value: availablesoon,
-                            onChanged: onchangedavailablesoon),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  
-                  
-                  MyButton(onPressed: onPressedcancel, msg: 'cancel')
-                ],
-              )
-            ],
+      child: SingleChildScrollView(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const Text('Availability'),
+                    Column(
+                      children: [
+                        ListTile(
+                          title: const Text('Available'),
+                          leading: Checkbox(
+                              value: available, onChanged: onchangedavailable),
+                        ),
+                        ListTile(
+                          title: const Text('Not Available'),
+                          leading: Checkbox(
+                              value: notavailable,
+                              onChanged: onchangednotavailable),
+                        ),
+                        ListTile(
+                          title: const Text('Available soon'),
+                          leading: Checkbox(
+                              value: availablesoon,
+                              onChanged: onchangedavailablesoon),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    
+                    
+                    MyButton(onPressed: onPressedcancel, msg: 'cancel')
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
