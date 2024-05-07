@@ -61,6 +61,7 @@ class FirestoreProduct {
 }
 
 class FireretProduct {
+  final user= FirebaseAuth.instance.currentUser;
   final conref = FirebaseFirestore.instance.collection('products');
   Stream<QuerySnapshot<Map<String, dynamic>>> readSupplierProduct(
       String id, List filters) {
@@ -74,6 +75,14 @@ class FireretProduct {
       log(e.toString());
       rethrow;
     }
+  }
+
+  void addreview(String id,String review){
+    final reqref=conref.doc(id).collection('reviews');
+    final reviewdoc={'reviewby':'/userdetails/${user!.uid}','review':review};
+
+    reqref.doc().set(reviewdoc);
+
   }
 }
 
@@ -124,4 +133,5 @@ class FireStorage {
       return null;
     }
   }
+  
 }

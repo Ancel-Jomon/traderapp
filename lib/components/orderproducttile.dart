@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:traderapp/components/mytextfeild.dart';
 import 'package:traderapp/models/orderdraft.dart';
 import 'package:traderapp/models/product.dart';
+import 'package:traderapp/services/firestoreproductoptions.dart';
 
 class OrderProducttile extends StatefulWidget {
   final Product product;
@@ -22,6 +24,8 @@ class _OrderProducttileState extends State<OrderProducttile> {
     Provider.of<OrderDraft>(context, listen: false)
         .removeOrderItem(widget.product);
   }
+
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +105,50 @@ class _OrderProducttileState extends State<OrderProducttile> {
                 Consumer<OrderDraft>(
                   builder: (context, value, child) => Text(
                       '${value.viewOderItemCount(widget.product) * widget.product.productPrice}'),
-                )
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center,children: [const Text('write a review'),IconButton(
+                        onPressed: () async {
+                          textEditingController.clear();
+                          final value=await showreviewdialog();
+                          if(value== true && textEditingController.text != ''){
+                              FireretProduct().addreview(widget.product.id!, textEditingController.text.trim());
+                          }
+                          else{
+
+                          }
+                        }, icon: const Icon(Icons.rate_review))],)
               ],
             ))
       ]),
     );
+  }
+
+  Future<bool> showreviewdialog() {
+    return showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(backgroundColor: Theme.of(context).colorScheme.secondary,
+            content: MyTextFeild(
+                  hinttext: 'enter a review',
+                  textController: textEditingController,maxLines: 4,),
+            actions: [
+              
+              Row(mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: const Text("cancel")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: const Text("save"))
+                ],
+              ),
+            ],
+          );
+        }).then((value) => value ?? false);
   }
 }
