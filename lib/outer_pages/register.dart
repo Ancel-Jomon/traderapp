@@ -3,7 +3,6 @@ import 'package:traderapp/components/button.dart';
 import 'package:traderapp/components/mytextfeild.dart';
 import 'package:traderapp/services/firebaseauthentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:traderapp/services/firebaseemailverification.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? changepage;
@@ -19,30 +18,37 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _cpword = TextEditingController();
 
   final formkey = GlobalKey<FormState>();
-  bool _isEmailVerified = false;
 
   void register(BuildContext context) async {
     if (formkey.currentState!.validate()) {
       final fireBaseAuthentication = FireBaseAuthentication();
-      await fireBaseAuthentication
-          .createWithEmailPassword(_email.text.trim(), _pword.text.trim())
-          .then((usercredential) {
-        if (usercredential.user!.emailVerified) {
-          navigate(context);
-        } else {
-         
-         gotoemailverification(context);
-          
-
-        }
-      });
+      try {
+        await fireBaseAuthentication
+            .createWithEmailPassword(_email.text.trim(), _pword.text.trim())
+            .then((usercredential) {
+          if (usercredential.user!.emailVerified) {
+            navigate(context);
+          } else {
+            gotoemailverification(context);
+          }
+        });
+      } on FirebaseAuthException catch (e) {
+        // TODO
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(backgroundColor: Theme.of(context).colorScheme.primary,
+            content: Text(e.toString(),style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
+          ),
+        );
+      }
     }
   }
+
   void gotoemailverification(BuildContext context) {
     Navigator.popAndPushNamed(context, '/EmailVerification');
   }
 
-void  navigate(BuildContext context) {
+  void navigate(BuildContext context) {
     Navigator.pop(context);
     Navigator.pushNamed(context, '/DetailsPage');
   }
@@ -137,17 +143,17 @@ void  navigate(BuildContext context) {
       return 'Password is required';
     }
     if (password.length < 6) {
-      return 'Password must be at least 8 characters long';
+      return 'Password must be at least 6 characters long';
     }
-    if (!password.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
-    }
-    if (!password.contains(RegExp(r'[a-z]'))) {
-      return 'Password must contain at least one lowercase letter';
-    }
-    if (!password.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
-    }
+    // if (!password.contains(RegExp(r'[A-Z]'))) {
+    //   return 'Password must contain at least one uppercase letter';
+    // }
+    // if (!password.contains(RegExp(r'[a-z]'))) {
+    //   return 'Password must contain at least one lowercase letter';
+    // }
+    // if (!password.contains(RegExp(r'[0-9]'))) {
+    //   return 'Password must contain at least one number';
+    // }
     return null; // Return null if password is valid
   }
 
@@ -160,6 +166,4 @@ void  navigate(BuildContext context) {
     }
     return null;
   }
-  
-  
 }

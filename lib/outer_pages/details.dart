@@ -8,7 +8,7 @@ import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/supplier.dart';
 //import 'package:traderapp/models/user.dart';
 //import 'package:traderapp/services/firebaseauthentication.dart';
-import 'package:traderapp/services/firestoreoptions.dart';
+import 'package:traderapp/services/firestoreuseroptions.dart';
 //import 'package:traderapp/themes.dart';
 
 class DetailsPage extends StatefulWidget {

@@ -13,7 +13,7 @@ class FireBaseAuthentication {
       
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      throw Exception(e);
+     rethrow;
     }
   }
 
@@ -24,7 +24,7 @@ class FireBaseAuthentication {
     }
     on FirebaseAuthException catch(e){
       log(e.toString());
-      throw Exception(e);
+      rethrow;
     }
 
   }

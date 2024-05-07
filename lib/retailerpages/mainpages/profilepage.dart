@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:traderapp/models/current_userdetails.dart';
 import 'package:traderapp/models/retailer.dart';
 import 'package:traderapp/models/user.dart';
-import 'package:traderapp/services/firestoreoptions.dart';
+import 'package:traderapp/services/firestoreuseroptions.dart';
 
 class RetProfilePage extends StatefulWidget {
   final userdata = FirebaseAuth.instance.currentUser;
